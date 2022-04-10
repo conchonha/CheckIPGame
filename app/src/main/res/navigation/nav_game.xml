@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_game">
+    android:id="@+id/nav_game"
+    app:startDestination="@id/registerFragment">
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.sangtb.game.ui.auth.fragments.LoginFragment"
+        android:label="LoginFragment" />
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.sangtb.game.ui.auth.fragments.AuthFragment"
+        android:label="RegisterFragment" />
 </navigation>

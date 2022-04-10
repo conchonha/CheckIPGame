@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_1B1111">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp50"
+            android:text="@string/text_you_are_logged_in_on_user"
+            android:textAlignment="center"
+            android:textColor="#ccc"
+            android:textSize="@dimen/sp20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDkKU"
+            style="@style/StyleButtonKu"
+            android:layout_width="@dimen/dp150"
+            android:layout_height="wrap_content"
+            android:text="@string/text_btn_dk_ku"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDnKu"
+            style="@style/StyleButtonKu"
+            android:layout_width="@dimen/dp150"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp120"
+            android:layout_marginEnd="@dimen/dp30"
+            android:text="@string/text_btn_dn_ku"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGetReferralCode"
+            style="@style/StyleButtonKu"
+            android:layout_width="@dimen/dp200"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp50"
+            android:text="@string/title_get_referral_code"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnDnKu" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGetSupportContact"
+            style="@style/StyleButtonKu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp50"
+            android:text="@string/text_btn_get_support_contact_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnGetReferralCode" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnZaloNumber"
+            style="@style/StyleButtonKu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp50"
+            android:text="@string/text_btn_go_to_the_forum_zalo_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnGetSupportContact" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn"
+            style="@style/StyleButtonKu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp50"
+            android:padding="@dimen/dp10"
+            android:text="vào diễn đàn soc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnZaloNumber" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
