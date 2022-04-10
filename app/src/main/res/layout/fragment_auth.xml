@@ -152,6 +152,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/account_ku" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLogin"
                     android:layout_width="@dimen/dp150"
                     android:layout_height="@dimen/dp40"
                     android:layout_marginTop="@dimen/dp30"
@@ -160,6 +161,7 @@
                     android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
+                    android:onClick="@{() -> action.setOnNavigate()}"
                     android:text="@{action.isLogin ? @string/title_btn_login : @string/title_btn_register}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp18"
@@ -178,7 +180,7 @@
             android:background="@android:color/transparent"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:onClick="@{() -> action.setIsLogin(false)}"
+            android:onClick="@{() -> action.setIsLogin(!action.isLogin())}"
             android:text="Click here to create new account"
             android:textAllCaps="false"
             android:visibility="@{action.isLogin ? View.VISIBLE : View.GONE }"

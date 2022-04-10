@@ -2,15 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_game"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/authFragment">
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.sangtb.game.ui.auth.fragments.LoginFragment"
-        android:label="LoginFragment" />
-
-    <fragment
-        android:id="@+id/registerFragment"
+        android:id="@+id/authFragment"
         android:name="com.sangtb.game.ui.auth.fragments.AuthFragment"
-        android:label="RegisterFragment" />
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/action_authFragment_to_introduceFragment"
+            app:destination="@+id/introduceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/introduceFragment"
+        android:name="com.sangtb.game.ui.introduce.IntroduceFragment"
+        android:label="IntroduceFragment" />
 </navigation>
