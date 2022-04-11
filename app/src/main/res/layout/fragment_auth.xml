@@ -2,19 +2,25 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="action"
-            type="com.sangtb.game.ui.auth.viewmodels.AuthViewModel" />
-
-        <import type="android.view.View" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/login">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/createNewAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:onClick="@{() -> action.setIsLogin(!action.isLogin())}"
+            android:text="Click here to create new account"
+            android:textAllCaps="false"
+            android:visibility="@{action.isLogin ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title_login"
@@ -49,39 +55,24 @@
                 android:layout_marginHorizontal="@dimen/dp10"
                 android:paddingVertical="@dimen/dp30">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_your_name"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp16"
-                    app:layout_constraintBottom_toTopOf="@+id/yourNameInput"
-                    app:layout_constraintStart_toStartOf="@+id/yourNameInput" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/yourNameInput"
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLogin"
+                    android:layout_width="@dimen/dp150"
                     android:layout_height="@dimen/dp40"
-                    android:layout_marginHorizontal="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp60"
-                    android:background="@drawable/bg_edt_register"
-                    android:drawableStart="@drawable/people_outline_24px"
-                    android:hint="@string/text_your_name"
-                    android:text="@={action.userName}"
-                    android:paddingStart="@dimen/dp15"
-                    android:textColorHint="@color/color_95FFFFFF"
+                    android:layout_marginBottom="@dimen/dp30"
+                    android:layout_marginTop="@dimen/dp30"
+                    android:background="@drawable/border_send"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:onClick="@{() -> action.setOnNavigate()}"
+                    android:text="@{action.isLogin ? @string/title_btn_login : @string/title_btn_register}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp18"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_phone_number"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp16"
-                    app:layout_constraintBottom_toTopOf="@+id/phoneNumber"
-                    app:layout_constraintStart_toStartOf="@+id/phoneNumber" />
+                    app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/phoneNumber"
@@ -92,21 +83,12 @@
                     android:background="@drawable/bg_edt_register"
                     android:drawableStart="@drawable/phone_android_24px"
                     android:hint="@string/title_phone_number"
-                    android:text="@={action.userPhone}"
                     android:paddingStart="@dimen/dp15"
+                    android:text="@={action.userPhone}"
                     android:textColorHint="@color/color_95FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/yourNameInput" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_account_ku"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp16"
-                    app:layout_constraintBottom_toTopOf="@+id/account_ku"
-                    app:layout_constraintStart_toStartOf="@+id/account_ku" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/account_ku"
@@ -124,15 +106,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_password"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp16"
-                    app:layout_constraintBottom_toTopOf="@+id/passwordInput"
-                    app:layout_constraintStart_toStartOf="@+id/passwordInput" />
-
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/passwordInput"
                     android:layout_width="match_parent"
@@ -142,50 +115,77 @@
                     android:background="@drawable/bg_edt_register"
                     android:drawableStart="@drawable/vpn_key_24px"
                     android:hint="@string/title_input_email"
+                    android:inputType="textPassword"
                     android:paddingStart="@dimen/dp15"
                     android:text="@={action.userPassword}"
-                    android:inputType="textPassword"
                     android:textColorHint="@color/color_95FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.508"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/account_ku" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnLogin"
-                    android:layout_width="@dimen/dp150"
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/yourNameInput"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/dp40"
-                    android:layout_marginTop="@dimen/dp30"
-                    android:layout_marginBottom="@dimen/dp30"
-                    android:background="@drawable/border_send"
-                    android:clickable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:onClick="@{() -> action.setOnNavigate()}"
-                    android:text="@{action.isLogin ? @string/title_btn_login : @string/title_btn_register}"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp18"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginHorizontal="@dimen/dp30"
+                    android:layout_marginTop="@dimen/dp60"
+                    android:background="@drawable/bg_edt_register"
+                    android:drawableStart="@drawable/people_outline_24px"
+                    android:hint="@string/text_your_name"
+                    android:paddingStart="@dimen/dp15"
+                    android:text="@={action.userName}"
+                    android:textColorHint="@color/color_95FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_phone_number"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16"
+                    app:layout_constraintBottom_toTopOf="@+id/phoneNumber"
+                    app:layout_constraintStart_toStartOf="@+id/phoneNumber" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_password"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16"
+                    app:layout_constraintBottom_toTopOf="@+id/passwordInput"
+                    app:layout_constraintStart_toStartOf="@+id/passwordInput" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_your_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16"
+                    app:layout_constraintBottom_toTopOf="@+id/yourNameInput"
+                    app:layout_constraintStart_toStartOf="@+id/yourNameInput" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_account_ku"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16"
+                    app:layout_constraintBottom_toTopOf="@+id/account_ku"
+                    app:layout_constraintStart_toStartOf="@+id/account_ku" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/createNewAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:onClick="@{() -> action.setIsLogin(!action.isLogin())}"
-            android:text="Click here to create new account"
-            android:textAllCaps="false"
-            android:visibility="@{action.isLogin ? View.VISIBLE : View.GONE }"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="action"
+            type="com.sangtb.game.ui.auth.viewmodels.AuthViewModel" />
+    </data>
 </layout>

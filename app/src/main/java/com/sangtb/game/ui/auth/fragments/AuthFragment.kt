@@ -9,7 +9,6 @@ import com.sangtb.game.R
 import com.sangtb.game.ui.auth.viewmodels.AuthViewModel
 import com.sangtb.game.databinding.FragmentAuthBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class AuthFragment : BaseFragment<FragmentAuthBinding, AuthViewModel>() {
@@ -19,16 +18,16 @@ class AuthFragment : BaseFragment<FragmentAuthBinding, AuthViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.checkAccount()
         binding.action = viewModel
         viewModel.getIpList()
     }
 
     override fun navigateToDestination(destination: Int, bundle: Bundle?) {
-        super.navigateToDestination(destination, bundle)
         findNavController().navigate(destination)
     }
 
-    override fun onBackFragment() {
-        super.onBackFragment()
+    fun setIsLogin(){
+        viewModel.setIsLoginForBack()
     }
 }

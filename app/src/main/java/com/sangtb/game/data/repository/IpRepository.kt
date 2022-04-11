@@ -1,8 +1,9 @@
-package com.sangtb.game.data
+package com.sangtb.game.data.repository
 
 import com.sangtb.game.base.BaseRepository
+import com.sangtb.game.data.IPList
 import kotlinx.coroutines.flow.Flow
 
 abstract class IpRepository : BaseRepository(){
-    abstract fun getIpList() : Flow<Result<IPList>>
+    abstract suspend fun getIpList()
 }

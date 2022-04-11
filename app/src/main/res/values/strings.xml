@@ -23,4 +23,6 @@
     <string name="text_btn_get_support_contact_number">Get support contact number</string>
     <string name="text_btn_go_to_the_forum_zalo_number">Go to the forum zalo number</string>
     <string name="text_btn_go_to_the_shock_forum">Go to the shock forum</string>
+    <string name="register_success">Register Success</string>
+    <string name="register_not_success">Vui lòng không được để trống dữ liệu</string>
 </resources>

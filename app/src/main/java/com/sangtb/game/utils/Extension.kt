@@ -2,6 +2,7 @@ package com.sangtb.game.utils;
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.sangtb.game.MainActivity
 
 /*
@@ -16,3 +17,6 @@ fun Fragment.onNavigate(actionId: Int, bundle: Bundle? = null) {
 fun Fragment.onBackScreen() {
     (activity as? MainActivity)?.onBackStack()
 }
+
+fun MutableLiveData<String>.isEmpty1() =
+    value?.isEmpty() == true
