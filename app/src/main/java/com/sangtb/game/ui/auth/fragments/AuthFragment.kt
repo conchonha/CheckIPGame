@@ -20,10 +20,15 @@ class AuthFragment : BaseFragment<FragmentAuthBinding, AuthViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.action = viewModel
+        viewModel.getIpList()
     }
 
     override fun navigateToDestination(destination: Int, bundle: Bundle?) {
         super.navigateToDestination(destination, bundle)
         findNavController().navigate(destination)
+    }
+
+    override fun onBackFragment() {
+        super.onBackFragment()
     }
 }
