@@ -1,4 +1,4 @@
-package com.sangtb.game.ui.auth.fragments
+package com.sangtb.game.ui.auth
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sangtb.androidlibrary.base.BaseFragment
 import com.sangtb.game.R
-import com.sangtb.game.ui.auth.viewmodels.AuthViewModel
 import com.sangtb.game.databinding.FragmentAuthBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +19,6 @@ class AuthFragment : BaseFragment<FragmentAuthBinding, AuthViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.checkAccount()
         binding.action = viewModel
-        viewModel.getIpList()
     }
 
     override fun navigateToDestination(destination: Int, bundle: Bundle?) {

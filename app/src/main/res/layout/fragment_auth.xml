@@ -186,6 +186,6 @@
 
         <variable
             name="action"
-            type="com.sangtb.game.ui.auth.viewmodels.AuthViewModel" />
+            type="com.sangtb.game.ui.auth.AuthViewModel" />
     </data>
 </layout>

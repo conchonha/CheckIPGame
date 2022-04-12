@@ -1,4 +1,4 @@
-package com.sangtb.game.di
+package com.sangtb.game.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

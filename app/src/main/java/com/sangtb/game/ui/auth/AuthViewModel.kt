@@ -1,4 +1,4 @@
-package com.sangtb.game.ui.auth.viewmodels
+package com.sangtb.game.ui.auth
 
 import android.app.Application
 import android.util.Log
@@ -58,6 +58,7 @@ class AuthViewModel @Inject constructor(
                     )
                 )
                 if (it) {
+                    checkIpAndWriteGoogleSheet()
                     evenSender.send(
                         AppEvent.OnNavigation(
                             R.id.action_authFragment_to_introduceFragment
@@ -71,7 +72,7 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun getIpList() {
+    fun checkIpAndWriteGoogleSheet() {
         Log.d(TAG, "getIpList: ")
         viewModelScope.launch {
             ipRepository.ipAddress.collect {

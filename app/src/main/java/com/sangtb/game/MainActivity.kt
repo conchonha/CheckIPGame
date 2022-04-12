@@ -8,7 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.sangtb.game.data.repository.IpRepositoryImpl
-import com.sangtb.game.ui.auth.fragments.AuthFragment
+import com.sangtb.game.ui.auth.AuthFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import javax.inject.Inject
