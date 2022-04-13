@@ -1,4 +1,4 @@
-package com.sangtb.game.data
+package com.sangtb.game.data.response
 
 data class IPList(
     val ip: String = "",

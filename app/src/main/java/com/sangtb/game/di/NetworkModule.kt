@@ -32,6 +32,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    @RetrofitAddress
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Const.BASE_URL)
@@ -42,13 +43,32 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiServices(retrofit: Retrofit): ApiIpList {
+    @RetrofitVietNam
+    fun provideRetrofitVietNam(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(Const.BASE_URL_VIETNAM)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @ApiIPAddress
+    fun provideApiServices(@RetrofitAddress retrofit: Retrofit): ApiIpList {
+        return retrofit.create(ApiIpList::class.java)
+    }
+
+    @Provides
+    @Singleton
+    @ApiIPVietNam
+    fun provideApiServicesVietNam(@RetrofitVietNam retrofit: Retrofit): ApiIpList {
         return retrofit.create(ApiIpList::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideIpListRepository(apiIpList: ApiIpList): IpRepositoryImpl {
-        return IpRepositoryImpl(apiIpList)
+    fun provideIpListRepository(@ApiIPAddress apiIpList: ApiIpList,@ApiIPVietNam apiIPVietNam1: ApiIpList): IpRepositoryImpl {
+        return IpRepositoryImpl(apiIpList,apiIPVietNam1)
     }
 }

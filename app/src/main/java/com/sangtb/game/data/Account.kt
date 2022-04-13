@@ -8,6 +8,7 @@ data class Account(
     var name: String,
     var phone: String,
     var accountKU: String,
-    var password: String
-) {
-}
+    var password: String,
+    var ip : String? = null,
+    var action: String = "addIpAddress"
+)

@@ -9,8 +9,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.sangtb.game.data.repository.IpRepositoryImpl
 import com.sangtb.game.ui.auth.AuthFragment
+import com.sangtb.game.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -28,6 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         jog = lifecycleScope.launchWhenStarted {
             ipRepository.getIpList()
+        }
+
+        ipRepository.showToastError.observe(this@MainActivity) {
+            showToast(getString(R.string.connect_server_fail) + it.message)
         }
 
         _navHostFragment =

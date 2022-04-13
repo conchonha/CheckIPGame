@@ -13,8 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class AuthFragment : BaseFragment<FragmentAuthBinding, AuthViewModel>() {
     override val layoutId: Int
         get() = R.layout.fragment_auth
+    
     override val viewModel: AuthViewModel by viewModels()
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.checkAccount()

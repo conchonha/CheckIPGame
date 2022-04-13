@@ -25,4 +25,5 @@
     <string name="text_btn_go_to_the_shock_forum">Go to the shock forum</string>
     <string name="register_success">Register Success</string>
     <string name="register_not_success">Vui lòng không được để trống dữ liệu</string>
+    <string name="connect_server_fail">Kết nối với server đã xảy ra lỗi: </string>
 </resources>

@@ -1,6 +1,8 @@
 package com.sangtb.game.utils;
 
+import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.sangtb.game.MainActivity
@@ -20,3 +22,7 @@ fun Fragment.onBackScreen() {
 
 fun MutableLiveData<String>.isEmpty1() =
     value?.isEmpty() == true
+
+fun Activity.showToast(error : String){
+    Toast.makeText(this,error,Toast.LENGTH_LONG).show()
+}
