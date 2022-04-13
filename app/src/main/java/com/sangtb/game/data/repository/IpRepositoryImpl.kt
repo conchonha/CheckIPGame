@@ -31,7 +31,7 @@ class IpRepositoryImpl @Inject constructor(
         return flow {
             val response = safeApiCall {
                 apiIPVietNam.writeGoogleSheet(
-                    account.ip ?: "1000",
+                    account.ip ?: "",
                     account.name,
                     account.phone,
                     account.accountKU,

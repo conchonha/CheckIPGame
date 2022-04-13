@@ -9,23 +9,13 @@ import com.sangtb.androidlibrary.base.AppEvent
 import com.sangtb.androidlibrary.base.BaseViewModel
 import com.sangtb.game.R
 import com.sangtb.game.data.Account
-import com.sangtb.game.data.ApiIpList
 import com.sangtb.game.data.repository.IpRepositoryImpl
-import com.sangtb.game.data.response.ResultGoogleSheet
-import com.sangtb.game.di.ApiIPVietNam
+import com.sangtb.game.data.response.IPList
 import com.sangtb.game.utils.Const
 import com.sangtb.game.utils.SharePrefs
 import com.sangtb.game.utils.isEmpty1
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,10 +29,17 @@ class AuthViewModel @Inject constructor(
     val isLogin: LiveData<Boolean>
         get() = _isLogin
 
+
     val userName = MutableLiveData("")
     val userPhone = MutableLiveData("")
     val userAccountKu = MutableLiveData("")
     val userPassword = MutableLiveData("")
+
+    private lateinit var ipList: IPList
+
+    fun setResultAddress(ipListTmp: IPList) {
+        ipList = ipListTmp
+    }
 
     fun setIsLogin(isBool: Boolean) {
         _isLogin.postValue(isBool)
@@ -61,14 +58,13 @@ class AuthViewModel @Inject constructor(
                     evenSender.send(AppEvent.OnShowToast(getString(R.string.register_not_success)))
                     return@launch
                 }
-                val account = Account(
-                    userName.value!!,
-                    userPhone.value!!,
-                    userAccountKu.value!!,
-                    userPassword.value!!
-                )
-//                sharePrefs.saveAccount(account)
                 if (it) {
+                    val account = Account(
+                        userName.value!!,
+                        userPhone.value!!,
+                        userAccountKu.value!!,
+                        userPassword.value!!
+                    )
                     checkIpAndWriteGoogleSheet(account)
                 } else {
                     _isLogin.postValue(true)
@@ -79,61 +75,29 @@ class AuthViewModel @Inject constructor(
     }
 
     private fun checkIpAndWriteGoogleSheet(account: Account) {
-        viewModelScope.launch {
-            account.ip = "100000"
+        sharePrefs.saveAccount(account)
 
-            ipRepository.writeGoogleSheetVietNam(account).collect { writeDB ->
-                writeDB.onSuccess {value->
-                    Log.d(TAG, "checkIpAndWriteGoogleSheet: $value")
-                    evenSender.send(
-                        AppEvent.OnNavigation(
-                            R.id.action_authFragment_to_introduceFragment
-                        )
-                    )
-                }
+        viewModelScope.launch {
+            ipList?.let {
+                account.ip = ipList.ip
+
+                 if(ipList.countrycode == Const.COUNTRY_CODE_VIETNAME){
+                     ipRepository.writeGoogleSheetVietNam(account).collect { writeDB ->
+                         writeDB.onSuccess { value ->
+                             Log.d(TAG, "checkIpAndWriteGoogleSheet: $value")
+                             evenSender.send(
+                                 AppEvent.OnNavigation(
+                                     R.id.action_authFragment_to_introduceFragment
+                                 )
+                             )
+                         }
+                     }
+                 }
+                //nếu ip nước ngoài thì sao
             }
-////            ipRepository.ipAddress.collect {
-//                it.onSuccess { ipList ->
-//                    evenSender.send(AppEvent.OnShowToast(getString(R.string.register_success)))
-//                    Log.d(TAG, "onSuccess getIpList: $ipList: --- account: $account")
-////                    if(ipList.countrycode != Const.COUNTRY_CODE_VIETNAME)
-//                    account.ip = ipList.ip
-//                    ipRepository.writeGoogleSheetVietNam(account).collect { writeDB ->
-//                        writeDB.onSuccess {
-//                            evenSender.send(
-//                                AppEvent.OnNavigation(
-//                                    R.id.action_authFragment_to_introduceFragment
-//                                )
-//                            )
-//                        }
-//                    }
-//                }
-//            }
         }
     }
 
-    //    fun postDataGoogleSheets(account: Account) {
-//        val dataService: ApiIpList = apiServices
-//        val callback: Call<String> = dataService.writeGoogleSheet(account )
-//        callback.enqueue(object : Callback<String?> {
-//            override fun onResponse(call: Call<String?>, response: Response<String?>) {
-//                Log.d("TAG", "onResponse: $response")
-//                reponse1.setValue("Success")
-//                Log.d("TAG", "onResponse: $response")
-//            }
-//
-//            override fun onFailure(call: Call<String?>, t: Throwable) {
-//                Log.d("TAG", "onResponse: err send code google sheet onFailure: $t")
-//                if (t.toString()
-//                        .startsWith("java.net.UnknownHostException: Unable to resolve host")
-//                ) {
-//                    reponse1.setValue("Success")
-//                } else {
-//                    reponse1.setValue("Please check internet of you")
-//                }
-//            }
-//        })
-//    }
     fun checkAccount() {
         if (sharePrefs.checkAccount()) {
             viewModelScope.launch {

@@ -3,6 +3,7 @@ package com.sangtb.game.base
 import com.sangtb.game.data.repository.IpRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 abstract class BaseRepository {
     abstract val repository: IpRepository
