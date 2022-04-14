@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp10"
+        android:background="@color/white">
+
+
+        <TextView
+            android:id="@+id/txtTitle"
+            style="@style/textStyleTitle"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="SangTB"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/messageDialog"
+            style="@style/textStyleTitle"
+            android:padding="@dimen/dp10"
+            android:text="Sabhhdhhd"
+            android:textSize="@dimen/sp18"
+            android:textStyle="normal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCancel"
+            style="@style/buttonStyle"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="@dimen/dp40"
+            android:layout_marginBottom="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp30"
+            android:layout_marginTop="@dimen/dp20"
+            android:padding="@dimen/dp5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btnAddOrder"
+            app:layout_constraintTop_toBottomOf="@+id/messageDialog" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddOrder"
+            style="@style/buttonStyle1"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="@dimen/dp40"
+            android:layout_marginBottom="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp30"
+            android:layout_marginTop="@dimen/dp20"
+            android:padding="@dimen/dp5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/btnCancel"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/messageDialog" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+    </data>
+</layout>

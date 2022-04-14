@@ -8,6 +8,7 @@ import com.sangtb.androidlibrary.base.BaseFragment
 import com.sangtb.game.R
 import com.sangtb.game.databinding.FragmentIntroduceBinding
 import com.sangtb.game.ui.auth.AuthViewModel
+import com.sangtb.game.utils.DialogGame
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,6 +35,10 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
             viewModel.linkDiendanxoc.observe(viewLifecycleOwner){
 
             }
+        }
+
+        binding.btnGetReferralCode.setOnClickListener {
+            DialogGame().show(childFragmentManager,"SANG")
         }
     }
 }
