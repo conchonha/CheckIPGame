@@ -10,5 +10,5 @@ object Const {
     const val BASE_URL = "https://iplist.cc/"
     const val COUNTRY_CODE_VIETNAME = "VN"
     const val BASE_URL_VIETNAM = "https://script.google.com/macros/s/AKfycbwNO7UYcF2o6mYQFY-DLKrlQjk9FfO6yotBnyLu-XIu6M_nPYk-RMucpOzNTNj8xEGh/"
-
+    const val TIME_ZONE_VIETNAM = "Asia/Ho_Chi_Minh"
 }

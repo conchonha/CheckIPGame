@@ -1,6 +1,7 @@
 package com.sangtb.game
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -12,7 +13,7 @@ import com.sangtb.game.ui.auth.AuthFragment
 import com.sangtb.game.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint

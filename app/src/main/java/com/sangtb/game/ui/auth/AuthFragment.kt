@@ -2,7 +2,6 @@ package com.sangtb.game.ui.auth
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -11,7 +10,6 @@ import com.sangtb.game.R
 import com.sangtb.game.data.repository.IpRepositoryImpl
 import com.sangtb.game.databinding.FragmentAuthBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
