@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "348155608499",
+    "project_id": "gameku-84429",
+    "storage_bucket": "gameku-84429.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348155608499:android:fcbe2d959d49225ba1dfc6",
+        "android_client_info": {
+          "package_name": "com.sangtb.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348155608499-pe844v12jfsl42varf7acp07gsh0iv6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJXw6d06GusIDd62rNpfHPgEPA2uqTD4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348155608499-pe844v12jfsl42varf7acp07gsh0iv6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
