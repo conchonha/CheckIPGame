@@ -7,4 +7,5 @@
     <dimen name="dp150">150dp</dimen>
     <dimen name="dp120">120dp</dimen>
     <dimen name="sp20">20sp</dimen>
+    <dimen name="sp60">60sp</dimen>
 </resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -13,19 +12,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_1B1111">
+        android:background="@drawable/img_background"
+        >
 
-<!--        <androidx.appcompat.widget.AppCompatTextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="@dimen/dp50"-->
-<!--            android:text="@{@string/text_you_are_logged_in_on_user(action.userName)}"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="#ccc"-->
-<!--            android:textSize="@dimen/sp20"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp50"
+            android:text="@{@string/text_you_are_logged_in_on_user(action.sharePrefs.getAccount().name)}"
+            android:textAlignment="center"
+            android:textColor="#ccc"
+            android:textSize="@dimen/sp20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDkKU"
@@ -48,49 +48,58 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnGetReferralCode"
-            style="@style/StyleButtonKu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp50"
-            android:text="@string/title_get_referral_code"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnDnKu" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/dp0"
+            app:layout_constraintTop_toBottomOf="@+id/btnDkKU"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGetReferralCode"
+                style="@style/StyleButtonKu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp0"
+                android:text="@string/title_get_referral_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+        />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnGetSupportContact"
-            style="@style/StyleButtonKu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp50"
-            android:text="@string/text_btn_get_support_contact_number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnGetReferralCode" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGetSupportContact"
+                style="@style/StyleButtonKu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp50"
+                android:text="@string/text_btn_get_support_contact_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnGetReferralCode" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnZaloNumber"
-            style="@style/StyleButtonKu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp50"
-            android:text="@string/text_btn_go_to_the_forum_zalo_number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnGetSupportContact" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnZaloNumber"
+                style="@style/StyleButtonKu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp50"
+                android:text="@string/text_btn_go_to_the_forum_zalo_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnGetSupportContact" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnShockForum"
-            style="@style/StyleButtonKu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp50"
-            android:padding="@dimen/dp10"
-            android:text="@string/text_btn_go_to_the_shock_forum"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnZaloNumber" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnShockForum"
+                style="@style/StyleButtonKu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp50"
+                android:padding="@dimen/dp10"
+                android:text="@string/text_btn_go_to_the_shock_forum"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnZaloNumber" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

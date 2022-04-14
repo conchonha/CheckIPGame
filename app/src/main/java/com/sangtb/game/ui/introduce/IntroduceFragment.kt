@@ -19,11 +19,12 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.action = viewModel
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.repositoryImpl.ipAddress.collect{
-                it.onSuccess {
-
+                it.onSuccess {ipList->
+                    viewModel.setIpList(ipList)
                 }
             }
         }

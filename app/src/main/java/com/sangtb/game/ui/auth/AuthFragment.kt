@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sangtb.androidlibrary.base.BaseFragment
+import com.sangtb.androidlibrary.utils.Validations
 import com.sangtb.game.R
 import com.sangtb.game.data.repository.IpRepositoryImpl
 import com.sangtb.game.databinding.FragmentAuthBinding
@@ -23,6 +24,9 @@ class AuthFragment : BaseFragment<FragmentAuthBinding, AuthViewModel>() {
     @Inject
     lateinit var repositoryImpl: IpRepositoryImpl
 
+    @Inject
+    lateinit var validation : Validations
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.checkAccount()
@@ -32,6 +36,10 @@ class AuthFragment : BaseFragment<FragmentAuthBinding, AuthViewModel>() {
             repositoryImpl.ipAddress.collect {
                 it.onSuccess { viewModel.setResultAddress(it) }
             }
+        }
+
+        binding.root.setOnClickListener {
+            validation.hideKeyboard(it,requireContext())
         }
     }
 

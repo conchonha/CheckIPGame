@@ -5,19 +5,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login">
+        android:background="@drawable/img_login">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/createNewAccount"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp50"
             android:background="@android:color/transparent"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="@{() -> action.setIsLogin(!action.isLogin())}"
             android:text="Click here to create new account"
             android:textAllCaps="false"
-            android:visibility="@{action.isLogin ? View.VISIBLE : View.GONE }"
+            android:visibility="@{action.isLogin ? View.VISIBLE : View.INVISIBLE }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -26,12 +26,12 @@
             android:id="@+id/title_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp40"
             android:fontFamily="@font/black_and_white_picture"
             android:gravity="center"
+            android:layout_marginTop="@dimen/dp30"
             android:text="@{action.isLogin ? @string/title_login : @string/text_register}"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_48"
+            android:textSize="@dimen/sp50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,25 +41,121 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp20"
             android:paddingHorizontal="@dimen/dp5"
             app:cardBackgroundColor="@color/color_80171616"
             app:cardCornerRadius="@dimen/dp30"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_login">
+            app:layout_constraintTop_toBottomOf="@+id/title_login"
+            app:layout_constraintBottom_toTopOf="@+id/createNewAccount"
+            >
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/dp30"
                 android:layout_marginHorizontal="@dimen/dp10"
                 android:paddingVertical="@dimen/dp30">
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_your_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16"
+                    />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/yourNameInput"
+                    android:layout_width="match_parent"
+                    android:inputType="text"
+                    android:drawablePadding="@dimen/dp10"
+                    android:layout_height="@dimen/dp40"
+                    android:background="@drawable/bg_edt_register"
+                    android:drawableStart="@drawable/people_outline_24px"
+                    android:hint="@string/text_your_name"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:paddingStart="@dimen/dp15"
+                    android:text="@={action.userName}"
+                    android:textColorHint="@color/color_95FFFFFF"
+                   />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_phone_number"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="@dimen/dp30"
+                    android:textSize="@dimen/sp16" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:inputType="text"
+                    android:drawablePadding="@dimen/dp10"
+                    android:background="@drawable/bg_edt_register"
+                    android:drawableStart="@drawable/phone_android_24px"
+                    android:hint="@string/title_phone_number"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:paddingStart="@dimen/dp15"
+                    android:text="@={action.userPhone}"
+                    android:textColorHint="@color/color_95FFFFFF"
+                 />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_account_ku"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="@dimen/dp30"
+                    android:textSize="@dimen/sp16"
+                   />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/account_ku"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:inputType="text"
+                    android:drawablePadding="@dimen/dp10"
+                    android:background="@drawable/bg_edt_register"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:drawableStart="@drawable/business_24px"
+                    android:hint="@string/title_account_ku"
+                    android:paddingStart="@dimen/dp15"
+                    android:text="@={action.userAccountKu}"
+                    android:textColorHint="@color/color_95FFFFFF"
+                  />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_password"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16"
+                    android:layout_marginTop="@dimen/dp30"
+                 />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/passwordInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40"
+                    android:background="@drawable/bg_edt_register"
+                    android:drawableStart="@drawable/vpn_key_24px"
+                    android:hint="@string/title_input_email"
+                    android:inputType="textPassword"
+                    android:drawablePadding="@dimen/dp10"
+                    android:imeOptions="actionDone"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:paddingStart="@dimen/dp15"
+                    android:text="@={action.userPassword}"
+                    android:textColorHint="@color/color_95FFFFFF"
+                   />
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnLogin"
                     android:layout_width="@dimen/dp150"
                     android:layout_height="@dimen/dp40"
-                    android:layout_marginBottom="@dimen/dp30"
                     android:layout_marginTop="@dimen/dp30"
                     android:background="@drawable/border_send"
                     android:clickable="true"
@@ -69,114 +165,10 @@
                     android:text="@{action.isLogin ? @string/title_btn_login : @string/title_btn_register}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp18"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
+                    android:layout_gravity="center_horizontal"
+                    />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/phoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_marginHorizontal="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp30"
-                    android:background="@drawable/bg_edt_register"
-                    android:drawableStart="@drawable/phone_android_24px"
-                    android:hint="@string/title_phone_number"
-                    android:paddingStart="@dimen/dp15"
-                    android:text="@={action.userPhone}"
-                    android:textColorHint="@color/color_95FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/yourNameInput" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/account_ku"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_marginHorizontal="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp30"
-                    android:background="@drawable/bg_edt_register"
-                    android:drawableStart="@drawable/business_24px"
-                    android:hint="@string/title_account_ku"
-                    android:paddingStart="@dimen/dp15"
-                    android:text="@={action.userAccountKu}"
-                    android:textColorHint="@color/color_95FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/passwordInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_marginHorizontal="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp30"
-                    android:background="@drawable/bg_edt_register"
-                    android:drawableStart="@drawable/vpn_key_24px"
-                    android:hint="@string/title_input_email"
-                    android:inputType="textPassword"
-                    android:paddingStart="@dimen/dp15"
-                    android:text="@={action.userPassword}"
-                    android:textColorHint="@color/color_95FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.508"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/account_ku" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/yourNameInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_marginHorizontal="@dimen/dp30"
-                    android:layout_marginTop="@dimen/dp60"
-                    android:background="@drawable/bg_edt_register"
-                    android:drawableStart="@drawable/people_outline_24px"
-                    android:hint="@string/text_your_name"
-                    android:paddingStart="@dimen/dp15"
-                    android:text="@={action.userName}"
-                    android:textColorHint="@color/color_95FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_phone_number"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp16"
-                    app:layout_constraintBottom_toTopOf="@+id/phoneNumber"
-                    app:layout_constraintStart_toStartOf="@+id/phoneNumber" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_password"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp16"
-                    app:layout_constraintBottom_toTopOf="@+id/passwordInput"
-                    app:layout_constraintStart_toStartOf="@+id/passwordInput" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_your_name"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp16"
-                    app:layout_constraintBottom_toTopOf="@+id/yourNameInput"
-                    app:layout_constraintStart_toStartOf="@+id/yourNameInput" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_account_ku"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp16"
-                    app:layout_constraintBottom_toTopOf="@+id/account_ku"
-                    app:layout_constraintStart_toStartOf="@+id/account_ku" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
