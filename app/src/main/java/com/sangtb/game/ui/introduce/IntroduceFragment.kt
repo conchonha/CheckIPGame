@@ -27,6 +27,13 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
                     viewModel.setIpList(ipList)
                 }
             }
+            viewModel.codeIntroduce.observe(viewLifecycleOwner) {
+                //show dialog
+            }
+
+            viewModel.linkDiendanxoc.observe(viewLifecycleOwner){
+
+            }
         }
     }
 }

@@ -6,14 +6,14 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 abstract class BaseRepository {
-    abstract val repository: IpRepository
+    abstract val repository: IpRepository?
 
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): Result<T> {
         return withContext(Dispatchers.IO) {
             try {
                 Result.success(apiCall.invoke())
             } catch (throwable: Throwable) {
-                repository.onFail(throwable)
+                repository?.onFail(throwable)
                 Result.failure(throwable)
             }
         }

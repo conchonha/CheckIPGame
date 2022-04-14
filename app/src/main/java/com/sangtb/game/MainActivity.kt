@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         ipRepository.showToastError.observe(this@MainActivity) {
+
             showToast(getString(R.string.connect_server_fail) + it.message)
         }
 

@@ -1,6 +1,8 @@
 package com.sangtb.game.di
 
+import com.google.firebase.firestore.FirebaseFirestore
 import com.sangtb.game.data.ApiIpList
+import com.sangtb.game.data.repository.DataFireBaseRepositoryImpl
 import com.sangtb.game.data.repository.IpRepositoryImpl
 import com.sangtb.game.utils.Const
 import dagger.Module
@@ -68,7 +70,16 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideIpListRepository(@ApiIPAddress apiIpList: ApiIpList,@ApiIPVietNam apiIPVietNam1: ApiIpList): IpRepositoryImpl {
-        return IpRepositoryImpl(apiIpList,apiIPVietNam1)
+    fun provideIpListRepository(
+        @ApiIPAddress apiIpList: ApiIpList,
+        @ApiIPVietNam apiIPVietNam1: ApiIpList
+    ): IpRepositoryImpl {
+        return IpRepositoryImpl(apiIpList, apiIPVietNam1)
+    }
+
+    @Singleton
+    @Provides
+    fun providerDataFirebaseRepository(firebaseStore: FirebaseFirestore,repositoryImpl: IpRepositoryImpl): DataFireBaseRepositoryImpl {
+        return DataFireBaseRepositoryImpl(firebaseStore,repositoryImpl)
     }
 }
