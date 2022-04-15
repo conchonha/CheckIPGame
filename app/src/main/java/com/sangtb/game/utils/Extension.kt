@@ -28,6 +28,3 @@ fun Activity.showToast(error : String){
     Toast.makeText(this,error,Toast.LENGTH_LONG).show()
 }
 
-//fun BaseRepository.showDialog(boolean: Boolean? = false){
-//    repository?.onShowDialog(boolean)
-//}

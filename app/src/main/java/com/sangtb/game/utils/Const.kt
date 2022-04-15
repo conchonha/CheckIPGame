@@ -17,4 +17,5 @@ object Const {
     const val COLLECTION_DIEN_DAN_XOC = "diendanxoc"
     const val TAG = "SangTB"
     const val DI_AMOUNT = 0.9f
+    const val TAG_DIALOG_CODE = "TAG_DIALOG_CODE"
 }

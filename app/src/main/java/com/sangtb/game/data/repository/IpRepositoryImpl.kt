@@ -1,13 +1,12 @@
 package com.sangtb.game.data.repository
 
 import android.util.Log
-import com.sangtb.androidlibrary.utils.SingleLiveEvent
 import com.sangtb.game.data.Account
 import com.sangtb.game.data.ApiIpList
 import com.sangtb.game.data.response.IPList
 import com.sangtb.game.di.ApiIPAddress
 import com.sangtb.game.di.ApiIPVietNam
-import com.sangtb.game.utils.SingleLiveEvent1
+import com.sangtb.game.utils.SingleLiveEvent
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -15,9 +14,9 @@ class IpRepositoryImpl @Inject constructor(
     @ApiIPAddress private val apiIpList: ApiIpList,
     @ApiIPVietNam private val apiIPVietNam: ApiIpList
 ) : IpRepository() {
-    val showDialogLoading = SingleLiveEvent1<Boolean>()
+    val showDialogLoading = SingleLiveEvent<Boolean>()
 
-    val showToastError = SingleLiveEvent1<Throwable>()
+    val showToastError = SingleLiveEvent<Throwable>()
 
     private val _ipAddress = MutableSharedFlow<Result<IPList>>()
     val ipAddress = _ipAddress.asSharedFlow()

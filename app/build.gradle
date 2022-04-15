@@ -60,7 +60,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
     //library
-    implementation 'com.github.conchonha:AndroidLibrary:0.0.7'
+    implementation 'com.github.conchonha:AndroidLibrary:0.0.9'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

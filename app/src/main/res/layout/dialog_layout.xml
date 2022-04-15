@@ -14,7 +14,7 @@
             style="@style/textStyleTitle"
             android:layout_width="wrap_content"
             android:gravity="center"
-            android:text="SangTB"
+            android:text="@{action.dataDialog.title}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
             android:id="@+id/messageDialog"
             style="@style/textStyleTitle"
             android:padding="@dimen/dp10"
-            android:text="Sabhhdhhd"
+            android:text="@{action.dataDialog.message}"
             android:textSize="@dimen/sp18"
             android:textStyle="normal"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -41,6 +41,8 @@
             android:layout_marginStart="@dimen/dp30"
             android:layout_marginTop="@dimen/dp20"
             android:padding="@dimen/dp5"
+            android:text="@string/title_cancel"
+            android:onClick="@{()->action.onCancel()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/btnAddOrder"
@@ -56,6 +58,7 @@
             android:layout_marginStart="@dimen/dp30"
             android:layout_marginTop="@dimen/dp20"
             android:padding="@dimen/dp5"
+            android:text="@string/title_ok"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/btnCancel"
             app:layout_constraintRight_toRightOf="parent"
@@ -64,6 +67,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
-
+        <variable
+            name="action"
+            type="com.sangtb.game.utils.DialogGame" />
     </data>
 </layout>

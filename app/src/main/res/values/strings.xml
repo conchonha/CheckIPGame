@@ -27,4 +27,8 @@
     <string name="register_not_success">Vui lòng không được để trống dữ liệu</string>
     <string name="connect_server_fail">Kết nối với server đã xảy ra lỗi: </string>
     <string name="title_loading">Loading</string>
+    <string name="notification">Thông báo</string>
+    <string name="introduce_code">Mã giới thiệu ccuar bạn là: </string>
+    <string name="title_cancel">Thoát</string>
+    <string name="title_ok">Đồng Ý</string>
 </resources>

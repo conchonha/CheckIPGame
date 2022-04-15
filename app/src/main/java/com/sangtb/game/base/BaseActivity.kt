@@ -16,7 +16,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 abstract class BaseActivity : AppCompatActivity() {
     protected val TAG by lazy { this.javaClass.name }
-    private var mProgressDialog: ProgressDialog? = null
 
     private val dialog = DialogLoading.getInstance()
 

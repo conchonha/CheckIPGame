@@ -12,6 +12,7 @@ import com.sangtb.game.R
 class DialogLoading private constructor() : DialogFragment(R.layout.dialog_loading) {
 
     override fun onResume() {
+        isCancelable = false
         dialog?.window?.apply {
             setLayout(
                 LinearLayout.LayoutParams.MATCH_PARENT,

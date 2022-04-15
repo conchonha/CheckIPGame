@@ -12,6 +12,7 @@ import com.sangtb.androidlibrary.base.BaseFragment
 import com.sangtb.game.R
 import com.sangtb.game.databinding.FragmentIntroduceBinding
 import com.sangtb.game.ui.auth.AuthViewModel
+import com.sangtb.game.utils.Const.TAG_DIALOG_CODE
 import com.sangtb.game.utils.DialogGame
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,9 +36,11 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
         }
 
         viewModel.codeIntroduce.observe(viewLifecycleOwner) {
-            Log.d(TAG, "onViewCreated -- showdialog: $it")
-            DialogGame().setTitle("Thông báo").setMessage("Mã giới thiệu của bạn là: ${it.code}")
-                .show(childFragmentManager, "SANG")
+            DialogGame()
+                .setCanceler()
+                .setTitle(getString(R.string.notification))
+                .setMessage(getString(R.string.introduce_code) + it.code)
+                .show(childFragmentManager, TAG_DIALOG_CODE)
         }
 
         viewModel.linkDiendanxoc.observe(viewLifecycleOwner) {
