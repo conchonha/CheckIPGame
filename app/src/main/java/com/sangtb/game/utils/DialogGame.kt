@@ -13,7 +13,7 @@ import com.sangtb.game.ui.introduce.IntroduceViewModel
     Copyright © 2022 UITS CO.,LTD
     Created by SangTB on 4/15/2022
 */
- class DialogGame : DialogLibrary<DialogLayoutBinding>(){
+class DialogGame : DialogLibrary<DialogLayoutBinding>(){
     override val layout: Int
         get() = R.layout.dialog_layout
 

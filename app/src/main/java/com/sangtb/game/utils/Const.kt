@@ -15,4 +15,6 @@ object Const {
     const val COLLECTION_CODE_INTRODUCE = "CodeIntroduce"
     const val COLLECTION_LINK_KU = "LinkKu"
     const val COLLECTION_DIEN_DAN_XOC = "diendanxoc"
+    const val TAG = "SangTB"
+    const val DI_AMOUNT = 0.9f
 }

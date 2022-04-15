@@ -9,10 +9,6 @@ import com.sangtb.game.data.response.LinkKu
 import com.sangtb.game.utils.Const.COLLECTION_CODE_INTRODUCE
 import com.sangtb.game.utils.Const.COLLECTION_DIEN_DAN_XOC
 import com.sangtb.game.utils.Const.COLLECTION_LINK_KU
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -26,6 +22,7 @@ class DataFireBaseRepositoryImpl @Inject constructor(
         val listCodeIntroduce = mutableListOf<CodeIntroduce>()
 
         firebaseStore.collection(COLLECTION_CODE_INTRODUCE).get().addOnSuccessListener {
+            repositoryImpl.onShowDialog()
             for (document in it.documents) {
                 document.toObject(CodeIntroduce::class.java)?.let { it ->
                     listCodeIntroduce.add(it)
@@ -39,6 +36,7 @@ class DataFireBaseRepositoryImpl @Inject constructor(
     override fun getLinkku(response: (List<LinkKu>) -> Unit) {
         val listLinkKu = mutableListOf<LinkKu>()
         firebaseStore.collection(COLLECTION_LINK_KU).get().addOnSuccessListener {
+            repositoryImpl.onShowDialog()
             for (document in it.documents) {
                 document.toObject(LinkKu::class.java)?.let { it ->
                     listLinkKu.add(it)
@@ -51,15 +49,17 @@ class DataFireBaseRepositoryImpl @Inject constructor(
 
     override fun getLinkDiendanxoc(response: (List<Diendanxoc>) -> Unit) {
         val listDiendanxoc = mutableListOf<Diendanxoc>()
-        firebaseStore.collection(COLLECTION_DIEN_DAN_XOC).get().addOnSuccessListener {
-            for (document in it.documents) {
-                document.toObject(Diendanxoc::class.java)?.let { it ->
-                    listDiendanxoc.add(it)
+        firebaseStore.collection(COLLECTION_DIEN_DAN_XOC).get()
+            .addOnSuccessListener {
+                repositoryImpl.onShowDialog()
+                for (document in it.documents) {
+                    document.toObject(Diendanxoc::class.java)?.let { it ->
+                        listDiendanxoc.add(it)
+                    }
                 }
-            }
-            Log.d("aa", "getLinkku: $listDiendanxoc")
-            response.invoke(listDiendanxoc)
-        }.addOnFailureListener(this@DataFireBaseRepositoryImpl)
+                Log.d("aa", "getLinkku: $listDiendanxoc")
+                response.invoke(listDiendanxoc)
+            }.addOnFailureListener(this@DataFireBaseRepositoryImpl)
     }
 
     override val repository: IpRepository?
@@ -67,6 +67,7 @@ class DataFireBaseRepositoryImpl @Inject constructor(
 
     override fun onFailure(p0: Exception) {
         Log.d(TAG, "onFailure: ${p0.message}")
+        repositoryImpl.onShowDialog()
         repositoryImpl.onFail(Throwable(p0.message))
     }
 }

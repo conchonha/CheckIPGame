@@ -9,5 +9,7 @@ abstract class IpRepository : BaseRepository(){
 
     abstract fun onFail(throwable: Throwable)
 
+    abstract fun onShowDialog(boolean: Boolean? = false)
+
     abstract suspend fun writeGoogleSheetVietNam(account: Account) : Flow<Result<Any>>
 }

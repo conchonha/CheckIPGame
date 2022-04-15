@@ -8,8 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.sangtb.game.base.BaseActivity
 import com.sangtb.game.data.repository.IpRepositoryImpl
 import com.sangtb.game.ui.auth.AuthFragment
+import com.sangtb.game.utils.DialogGame
+import com.sangtb.game.utils.DialogLoading
 import com.sangtb.game.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -17,7 +20,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var _navHostController: NavController
     private lateinit var _navHostFragment: NavHostFragment
     private var jog : Job? = null
@@ -33,8 +36,12 @@ class MainActivity : AppCompatActivity() {
             ipRepository.getIpList()
         }
 
-        ipRepository.showToastError.observe(this@MainActivity) {
+        ipRepository.showDialogLoading.observe(this){
+            Log.d(TAG, "onCreate: $it")
+           if(it) showProgressDialog() else  hideDialog()
+        }
 
+        ipRepository.showToastError.observe(this@MainActivity) {
             showToast(getString(R.string.connect_server_fail) + it.message)
         }
 

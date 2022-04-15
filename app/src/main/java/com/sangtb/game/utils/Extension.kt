@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.sangtb.game.MainActivity
+import com.sangtb.game.base.BaseRepository
 
 /*
     Copyright © 2022 UITS CO.,LTD
@@ -26,3 +27,7 @@ fun MutableLiveData<String>.isEmpty1() =
 fun Activity.showToast(error : String){
     Toast.makeText(this,error,Toast.LENGTH_LONG).show()
 }
+
+//fun BaseRepository.showDialog(boolean: Boolean? = false){
+//    repository?.onShowDialog(boolean)
+//}

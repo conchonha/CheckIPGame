@@ -1,6 +1,7 @@
 package com.sangtb.game.ui.introduce
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -8,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.sangtb.androidlibrary.base.BaseFragment
 import com.sangtb.game.R
 import com.sangtb.game.databinding.FragmentIntroduceBinding
-import com.sangtb.game.ui.auth.AuthViewModel
 import com.sangtb.game.utils.DialogGame
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,22 +24,21 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
         binding.action = viewModel
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.repositoryImpl.ipAddress.collect{
-                it.onSuccess {ipList->
+            viewModel.repositoryImpl.ipAddress.collect {
+                it.onSuccess { ipList ->
                     viewModel.setIpList(ipList)
                 }
             }
-            viewModel.codeIntroduce.observe(viewLifecycleOwner) {
-                //show dialog
-            }
-
-            viewModel.linkDiendanxoc.observe(viewLifecycleOwner){
-
-            }
         }
 
-        binding.btnGetReferralCode.setOnClickListener {
-            DialogGame().show(childFragmentManager,"SANG")
+        viewModel.codeIntroduce.observe(viewLifecycleOwner) {
+            Log.d(TAG, "onViewCreated -- showdialog: $it")
+            DialogGame().setTitle("Thông báo").setMessage("Mã giới thiệu của bạn là: ${it.code}")
+                .show(childFragmentManager, "SANG")
+        }
+
+        viewModel.linkDiendanxoc.observe(viewLifecycleOwner) {
+
         }
     }
 
