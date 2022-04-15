@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp50"
-                android:onClick="@{()-> action.getLinkDiendanxocs()}"
+                android:onClick="@{()-> action.getLinkForumXoc1()}"
                 android:padding="@dimen/dp10"
                 android:text="@string/text_btn_go_to_the_shock_forum"
                 app:layout_constraintEnd_toEndOf="parent"

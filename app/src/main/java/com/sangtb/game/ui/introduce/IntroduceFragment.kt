@@ -3,7 +3,6 @@ package com.sangtb.game.ui.introduce
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.sangtb.androidlibrary.base.BaseFragment
 import com.sangtb.game.R
 import com.sangtb.game.databinding.FragmentIntroduceBinding
-import com.sangtb.game.ui.auth.AuthViewModel
 import com.sangtb.game.utils.Const.TAG_DIALOG_CODE
 import com.sangtb.game.utils.DialogGame
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,14 +41,14 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
                 .show(childFragmentManager, TAG_DIALOG_CODE)
         }
 
-        viewModel.linkDiendanxoc.observe(viewLifecycleOwner) {
+        viewModel.linkForumXoc.observe(viewLifecycleOwner) {
             showWeb(it.link)
         }
 
         viewModel.supportContactNumber.observe(viewLifecycleOwner) {
             showWeb(it.link)
         }
-        viewModel.zaloNumber.observe(viewLifecycleOwner) {
+        viewModel.zaLoNumber.observe(viewLifecycleOwner) {
             showWeb(it.link)
         }
         binding.btnGetReferralCode.setOnClickListener {

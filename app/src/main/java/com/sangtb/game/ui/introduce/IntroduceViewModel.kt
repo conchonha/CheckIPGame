@@ -36,8 +36,8 @@ class IntroduceViewModel @Inject constructor(
     private val _linkKu = MutableLiveData<LinkKu>()
     val linkKu: LiveData<LinkKu> = _linkKu
 
-    private val _linkDiendanxoc = MutableLiveData<Diendanxoc>()
-    val linkDiendanxoc: LiveData<Diendanxoc> = _linkDiendanxoc
+    private val _linkForumXoc = MutableLiveData<Diendanxoc>()
+    val linkForumXoc: LiveData<Diendanxoc> = _linkForumXoc
 
     val codeIntroduce = SingleLiveEvent<CodeIntroduce>()
 
@@ -45,8 +45,8 @@ class IntroduceViewModel @Inject constructor(
     private val _supportContactNumber = MutableLiveData<LinkKu>()
     val supportContactNumber: LiveData<LinkKu> = _supportContactNumber
 
-    private val _zaloNumber = MutableLiveData<LinkKu>()
-    val zaloNumber: LiveData<LinkKu> = _zaloNumber
+    private val _zaLoNumber = MutableLiveData<LinkKu>()
+    val zaLoNumber: LiveData<LinkKu> = _zaLoNumber
 
     fun setIpList(ipList: IPList) {
         _ipList = ipList
@@ -65,8 +65,8 @@ class IntroduceViewModel @Inject constructor(
         repositoryImpl.onShowDialog(true)
         viewModelScope.launch {
             dbFirebase.getCodeIntroduce {
-                codeIntroduce.postValue(it[INDEX_0])
-                Log.d(TAG, "getCodeIntroduce: ${it[INDEX_0]}")
+                it.getOrNull(INDEX_0)?.let { value -> codeIntroduce.postValue(value) }
+                Log.d(TAG, "getCodeIntroduce: ${it.getOrNull(INDEX_0)}")
             }
         }
     }
@@ -79,11 +79,11 @@ class IntroduceViewModel @Inject constructor(
                     AppEvent.OnNavigation(
                         R.id.action_introduceFragment_to_webViewFragment,
                         bundle = Bundle().apply {
-                            putString(LINK_WEB_VIEW, it[0].link)
+                            putString(LINK_WEB_VIEW, it.getOrNull(INDEX_0)?.link)
                         }
                     )
                 )
-                Log.d(TAG, "getLinkKu: ${it[INDEX_0]}")
+                Log.d(TAG, "getLinkKu: ${it.getOrNull(INDEX_0)}")
             }
         }
     }
@@ -96,11 +96,11 @@ class IntroduceViewModel @Inject constructor(
                     AppEvent.OnNavigation(
                         R.id.action_introduceFragment_to_webViewFragment,
                         bundle = Bundle().apply {
-                            putString(LINK_WEB_VIEW, it[INDEX_0].link)
+                            putString(LINK_WEB_VIEW, it.getOrNull(INDEX_0)?.link)
                         }
                     )
                 )
-                Log.d(TAG, "getLinkKu: ${it.get(INDEX_0)}")
+                Log.d(TAG, "getLinkKu: ${it.getOrNull(INDEX_0)}")
             }
         }
     }
@@ -110,11 +110,12 @@ class IntroduceViewModel @Inject constructor(
         repositoryImpl.onShowDialog(true)
         viewModelScope.launch {
             dbFirebase.getLinkDkku {
-                _linkKu.postValue(it[1])
-                Log.d(TAG, "getSupportContactNumber: ${it[INDEX_1]}")
+                it.getOrNull(INDEX_1)?.let { value -> _linkKu.postValue(value) }
+                Log.d(TAG, "getSupportContactNumber: ${it.getOrNull(INDEX_1)}")
                 dbFirebase.getLinkDnku { result ->
-                    _supportContactNumber.postValue(result[INDEX_0])
-                    Log.d(TAG, "getSupportContactNumber: ${result[INDEX_0]}")
+                    result.getOrNull(INDEX_0)
+                        ?.let { value -> _supportContactNumber.postValue(value) }
+                    Log.d(TAG, "getSupportContactNumber: ${result.getOrNull(INDEX_0)}")
                 }
             }
         }
@@ -125,22 +126,22 @@ class IntroduceViewModel @Inject constructor(
         repositoryImpl.onShowDialog(true)
         viewModelScope.launch {
             dbFirebase.getLinkDkku {
-                _zaloNumber.postValue(it[INDEX_0])
-                Log.d(TAG, "getZaLoNumber: ${it[INDEX_0]}")
+                it.getOrNull(INDEX_0)?.let { value -> _zaLoNumber.postValue(value) }
+                Log.d(TAG, "getZaLoNumber: ${it.getOrNull(INDEX_0)}")
                 dbFirebase.getLinkDkku { result ->
-                    _linkKu.postValue(result[INDEX_1])
-                    Log.d(TAG, "getZaLoNumber: ${result[INDEX_1]}")
+                    result.getOrNull(INDEX_1)?.let { value -> _linkKu.postValue(value) }
+                    Log.d(TAG, "getZaLoNumber: ${result.getOrNull(INDEX_1)}")
                 }
             }
         }
     }
 
-    fun getLinkDiendanxocs() = checkInterNetVietNam {
+    fun getLinkForumXoc1() = checkInterNetVietNam {
         repositoryImpl.onShowDialog(true)
         viewModelScope.launch {
             dbFirebase.getLinkDiendanxoc {
-                _linkDiendanxoc.postValue(it[INDEX_0])
-                Log.d(TAG, "getLinkDiendanxoc: ${it[INDEX_0]}")
+                it.getOrNull(INDEX_0)?.let { value-> _linkForumXoc.postValue(value)}
+                Log.d(TAG, "getLinkDienDanXoc: ${it.getOrNull(INDEX_0)}")
             }
         }
     }

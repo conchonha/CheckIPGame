@@ -36,7 +36,7 @@ class DataFireBaseRepositoryImpl @Inject constructor(
     override fun getLinkDkku(response: (List<LinkKu>) -> Unit) {
         val listLinkKu = mutableListOf<LinkKu>()
         firebaseStore.collection(COLLECTION_LINK_KU).whereEqualTo("dk", "dk").get().addOnSuccessListener {
-
+            repositoryImpl.onShowDialog()
             for (document in it.documents) {
                 document.toObject(LinkKu::class.java)?.let { it ->
                     listLinkKu.add(it)
@@ -50,6 +50,7 @@ class DataFireBaseRepositoryImpl @Inject constructor(
     override fun getLinkDnku(response: (List<LinkKu>) -> Unit) {
         val listLinkKu = mutableListOf<LinkKu>()
         firebaseStore.collection(COLLECTION_LINK_KU).whereEqualTo("dk", "dn").get().addOnSuccessListener {
+            repositoryImpl.onShowDialog()
             for (document in it.documents) {
                 document.toObject(LinkKu::class.java)?.let { it ->
                     listLinkKu.add(it)
