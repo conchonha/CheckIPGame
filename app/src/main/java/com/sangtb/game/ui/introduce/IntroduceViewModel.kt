@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sangtb.androidlibrary.base.AppEvent
 import com.sangtb.androidlibrary.base.BaseViewModel
+import com.sangtb.game.data.repository.DataFireBaseRepository
 import com.sangtb.game.data.repository.DataFireBaseRepositoryImpl
 import com.sangtb.game.R
 import com.sangtb.game.data.repository.IpRepositoryImpl
@@ -44,11 +45,11 @@ class IntroduceViewModel @Inject constructor(
     val codeIntroduce = SingleLiveEvent1<CodeIntroduce>()
 
     //khi có database sẽ update sau
-    private val _supportContactNumber = MutableLiveData<LinkKu>()
+    private var _supportContactNumber = MutableLiveData<LinkKu>()
     val supportContactNumber: LiveData<LinkKu>
         get() = _supportContactNumber
 
-    private val _zaloNumber = MutableLiveData<LinkKu>()
+    private var _zaloNumber = MutableLiveData<LinkKu>()
     val zaloNumber: LiveData<LinkKu>
         get() = _zaloNumber
 
@@ -59,7 +60,6 @@ class IntroduceViewModel @Inject constructor(
     private fun checkInterNetVietNam(): Boolean {
         val cal = Calendar.getInstance()
         val tz = cal.timeZone
-
         val boolean = _ipList?.countrycode == Const.COUNTRY_CODE_VIETNAME && tz.id == Const.TIME_ZONE_VIETNAM
         Log.d(TAG, "checkInterNetVietNam: $boolean")
         return boolean
@@ -78,11 +78,10 @@ class IntroduceViewModel @Inject constructor(
         }
     }
 
-    fun getLinkku() {
+    fun getLinkDkku() {
         Log.d(TAG, "getLinkku:  ${checkInterNetVietNam()}")
-        if (checkInterNetVietNam()){
-            repositoryImpl.onShowDialog(true)
-            dataFireBaseRepository.getLinkku {
+        if (checkInterNetVietNam())
+            dataFireBaseRepository.getLinkDkku {
                 viewModelScope.launch {
                     evenSender.send(
                         AppEvent.OnNavigation(
@@ -95,7 +94,24 @@ class IntroduceViewModel @Inject constructor(
                     Log.d(TAG, "getLinkku: ${it.get(0)}")
                 }
             }
-        }
+    }
+
+    fun getLinkDnku() {
+        Log.d(TAG, "getLinkku:  ${checkInterNetVietNam()}")
+        if (checkInterNetVietNam())
+            dataFireBaseRepository.getLinkDnku {
+                viewModelScope.launch {
+                    evenSender.send(
+                        AppEvent.OnNavigation(
+                            R.id.action_introduceFragment_to_webViewFragment,
+                            bundle = Bundle().apply {
+                                putString(LINK_WEB_VIEW, it[0].link)
+                            }
+                        )
+                    )
+                    Log.d(TAG, "getLinkku: ${it.get(0)}")
+                }
+            }
     }
 
     //khi có data sẽ update sau
@@ -104,9 +120,9 @@ class IntroduceViewModel @Inject constructor(
         if (checkInterNetVietNam()){
             repositoryImpl.onShowDialog(true)
             viewModelScope.launch {
-                dataFireBaseRepository.getLinkku {
-                    _linkKu.postValue(it[1])
-                    Log.d(TAG, "getSupportContactNumber: ${it.get(1)}")
+                dataFireBaseRepository.getLinkDnku {
+                    _supportContactNumber.postValue(it[0])
+                    Log.d(TAG, "getSupportContactNumber: ${it.get(0)}")
                 }
             }
         }
@@ -118,9 +134,9 @@ class IntroduceViewModel @Inject constructor(
         if (checkInterNetVietNam()){
             repositoryImpl.onShowDialog(true)
             viewModelScope.launch {
-                dataFireBaseRepository.getLinkku {
-                    _linkKu.postValue(it[1])
-                    Log.d(TAG, "getZaloNumber: ${it.get(1)}")
+                dataFireBaseRepository.getLinkDkku {
+                    _zaloNumber.postValue(it[0])
+                    Log.d(TAG, "getZaloNumber: ${it.get(0)}")
                 }
             }
         }
@@ -141,5 +157,7 @@ class IntroduceViewModel @Inject constructor(
 
     companion object {
         const val LINK_WEB_VIEW = "LinkWebView"
+        const val LINK_DK_KU = "https://gu1vn.net/Mobile/Register/Register"
+        const val LINK_DN_KU = "https://gu1vn.net/Mobile/Home/Login"
     }
 }

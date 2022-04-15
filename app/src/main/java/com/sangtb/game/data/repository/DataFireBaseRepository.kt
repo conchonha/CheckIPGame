@@ -14,7 +14,9 @@ abstract class DataFireBaseRepository : BaseRepository() {
 
     abstract fun getCodeIntroduce(response: (List<CodeIntroduce>) -> Unit)
 
-    abstract fun getLinkku(response: (List<LinkKu>) -> Unit)
+    abstract fun getLinkDkku(response: (List<LinkKu>) -> Unit)
+
+    abstract fun getLinkDnku(response: (List<LinkKu>) -> Unit)
 
     abstract fun getLinkDiendanxoc(response: (List<Diendanxoc>) -> Unit)
 }

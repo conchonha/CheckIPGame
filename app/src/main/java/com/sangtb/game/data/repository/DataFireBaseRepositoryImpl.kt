@@ -33,10 +33,23 @@ class DataFireBaseRepositoryImpl @Inject constructor(
         }.addOnFailureListener(this@DataFireBaseRepositoryImpl)
     }
 
-    override fun getLinkku(response: (List<LinkKu>) -> Unit) {
+    override fun getLinkDkku(response: (List<LinkKu>) -> Unit) {
         val listLinkKu = mutableListOf<LinkKu>()
-        firebaseStore.collection(COLLECTION_LINK_KU).get().addOnSuccessListener {
-            repositoryImpl.onShowDialog()
+        firebaseStore.collection(COLLECTION_LINK_KU).whereEqualTo("dk", "dk").get().addOnSuccessListener {
+
+            for (document in it.documents) {
+                document.toObject(LinkKu::class.java)?.let { it ->
+                    listLinkKu.add(it)
+                }
+            }
+            Log.d("aa", "getLinkku: $listLinkKu")
+            response.invoke(listLinkKu)
+        }.addOnFailureListener(this@DataFireBaseRepositoryImpl)
+    }
+
+    override fun getLinkDnku(response: (List<LinkKu>) -> Unit) {
+        val listLinkKu = mutableListOf<LinkKu>()
+        firebaseStore.collection(COLLECTION_LINK_KU).whereEqualTo("dk", "dn").get().addOnSuccessListener {
             for (document in it.documents) {
                 document.toObject(LinkKu::class.java)?.let { it ->
                     listLinkKu.add(it)

@@ -26,4 +26,6 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding, WebViewModel>() {
             binding.webView.loadUrl(it)
         }
     }
+
+
 }
