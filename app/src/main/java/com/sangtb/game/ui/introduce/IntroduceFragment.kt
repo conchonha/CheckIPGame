@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.sangtb.androidlibrary.base.BaseFragment
 import com.sangtb.game.R
 import com.sangtb.game.databinding.FragmentIntroduceBinding
@@ -40,5 +41,9 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
         binding.btnGetReferralCode.setOnClickListener {
             DialogGame().show(childFragmentManager,"SANG")
         }
+    }
+
+    override fun navigateToDestination(destination: Int, bundle: Bundle?) {
+        findNavController().navigate(destination, bundle)
     }
 }

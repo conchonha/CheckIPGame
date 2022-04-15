@@ -22,7 +22,7 @@ class DataFireBaseRepositoryImpl @Inject constructor(
 ) :
     DataFireBaseRepository(), OnFailureListener {
 
-    override suspend fun getCodeIntroduce(response: (List<CodeIntroduce>) -> Unit) {
+    override fun getCodeIntroduce(response: (List<CodeIntroduce>) -> Unit) {
         val listCodeIntroduce = mutableListOf<CodeIntroduce>()
 
         firebaseStore.collection(COLLECTION_CODE_INTRODUCE).get().addOnSuccessListener {
@@ -36,20 +36,20 @@ class DataFireBaseRepositoryImpl @Inject constructor(
         }.addOnFailureListener(this@DataFireBaseRepositoryImpl)
     }
 
-    override suspend fun getLinkku(response : (List<LinkKu>) -> Unit){
-            val listLinkKu = mutableListOf<LinkKu>()
-            firebaseStore.collection(COLLECTION_LINK_KU).get().addOnSuccessListener {
-                for (document in it.documents) {
-                    document.toObject(LinkKu::class.java)?.let { it ->
-                        listLinkKu.add(it)
-                    }
+    override fun getLinkku(response: (List<LinkKu>) -> Unit) {
+        val listLinkKu = mutableListOf<LinkKu>()
+        firebaseStore.collection(COLLECTION_LINK_KU).get().addOnSuccessListener {
+            for (document in it.documents) {
+                document.toObject(LinkKu::class.java)?.let { it ->
+                    listLinkKu.add(it)
                 }
-                Log.d("aa", "getLinkku: $listLinkKu")
-                response.invoke(listLinkKu)
-            }.addOnFailureListener(this@DataFireBaseRepositoryImpl)
-        }
+            }
+            Log.d("aa", "getLinkku: $listLinkKu")
+            response.invoke(listLinkKu)
+        }.addOnFailureListener(this@DataFireBaseRepositoryImpl)
+    }
 
-    override suspend fun getLinkDiendanxoc(response: (List<Diendanxoc>) -> Unit) {
+    override fun getLinkDiendanxoc(response: (List<Diendanxoc>) -> Unit) {
         val listDiendanxoc = mutableListOf<Diendanxoc>()
         firebaseStore.collection(COLLECTION_DIEN_DAN_XOC).get().addOnSuccessListener {
             for (document in it.documents) {

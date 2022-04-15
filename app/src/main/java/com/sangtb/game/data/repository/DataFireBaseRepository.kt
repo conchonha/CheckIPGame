@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.Flow
 
 abstract class DataFireBaseRepository : BaseRepository() {
 
-    companion object{
-      val TAG by lazy { this.javaClass.name }
+    companion object {
+        val TAG by lazy { this.javaClass.name }
     }
 
-    abstract suspend fun getCodeIntroduce(response: (List<CodeIntroduce>) ->Unit)
+    abstract fun getCodeIntroduce(response: (List<CodeIntroduce>) -> Unit)
 
-    abstract suspend fun getLinkku(response : (List<LinkKu>) -> Unit)
+    abstract fun getLinkku(response: (List<LinkKu>) -> Unit)
 
-    abstract suspend fun getLinkDiendanxoc(response : (List<Diendanxoc>) -> Unit)
+    abstract fun getLinkDiendanxoc(response: (List<Diendanxoc>) -> Unit)
 }

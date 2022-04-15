@@ -1,10 +1,12 @@
 package com.sangtb.game.ui.introduce
 
 import android.app.Application
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sangtb.androidlibrary.base.AppEvent
 import com.sangtb.androidlibrary.base.BaseViewModel
 import com.sangtb.game.data.repository.DataFireBaseRepository
 import com.sangtb.game.data.repository.DataFireBaseRepositoryImpl
@@ -65,30 +67,40 @@ class IntroduceViewModel @Inject constructor(
     }
 
     fun getCodeIntroduces() {
-        Log.d(TAG, "getCodeIntroduces: ")
-        viewModelScope.launch {
-            dataFireBaseRepository.getCodeIntroduce{
-                _codeIntroduce.postValue(it[0])
-                Log.d(TAG, "getCodeIntroduce: ${it.get(0)}")
+        Log.d(TAG, "getCodeIntroduces: ${checkInterNetVietNam()}")
+        if (checkInterNetVietNam())
+            viewModelScope.launch {
+                dataFireBaseRepository.getCodeIntroduce {
+                    _codeIntroduce.postValue(it[0])
+                    Log.d(TAG, "getCodeIntroduce: ${it.get(0)}")
+                }
             }
-        }
     }
 
     fun getLinkku() {
-        Log.d(TAG, "getLinkku: ")
-        viewModelScope.launch {
-            dataFireBaseRepository.getLinkku{
-                _linkKu.postValue(it[0])
-                Log.d(TAG, "getLinkku: ${it.get(0)}")
+        Log.d(TAG, "getLinkku:  ${checkInterNetVietNam()}")
+        if (checkInterNetVietNam())
+            dataFireBaseRepository.getLinkku {
+                viewModelScope.launch {
+                    evenSender.send(
+                        AppEvent.OnNavigation(
+                            R.id.action_introduceFragment_to_webViewFragment,
+                            bundle = Bundle().apply {
+                                putString(LINK_WEB_VIEW, it[0].link)
+                            }
+                        )
+                    )
+                    Log.d(TAG, "getLinkku: ${it.get(0)}")
+                }
             }
-        }
     }
 
     //khi có data sẽ update sau
     fun getSupportContactNumbers() {
-        Log.d(TAG, "getSupportContactNumbers: ")
+        Log.d(TAG, "getSupportContactNumbers:  ${checkInterNetVietNam()}")
+        if (checkInterNetVietNam())
         viewModelScope.launch {
-            dataFireBaseRepository.getLinkku{
+            dataFireBaseRepository.getLinkku {
                 _linkKu.postValue(it[1])
                 Log.d(TAG, "getSupportContactNumber: ${it.get(1)}")
             }
@@ -97,9 +109,10 @@ class IntroduceViewModel @Inject constructor(
 
     //khi có data sẽ update sau
     fun getZaloNumbers() {
-        Log.d(TAG, "getZaloNumbers: ")
+        Log.d(TAG, "getZaloNumbers:  ${checkInterNetVietNam()}")
+        if (checkInterNetVietNam())
         viewModelScope.launch {
-            dataFireBaseRepository.getLinkku{
+            dataFireBaseRepository.getLinkku {
                 _linkKu.postValue(it[1])
                 Log.d(TAG, "getZaloNumber: ${it.get(1)}")
             }
@@ -108,11 +121,16 @@ class IntroduceViewModel @Inject constructor(
 
     fun getLinkDiendanxocs() {
         Log.d(TAG, "getLinkDiendanxocs: ")
+        if (checkInterNetVietNam())
         viewModelScope.launch {
-            dataFireBaseRepository.getLinkDiendanxoc{
+            dataFireBaseRepository.getLinkDiendanxoc {
                 _linkDiendanxoc.postValue(it[0])
                 Log.d(TAG, "getLinkDiendanxoc: ${it.get(0)}")
             }
         }
+    }
+
+    companion object {
+        const val LINK_WEB_VIEW = "LinkWebView"
     }
 }

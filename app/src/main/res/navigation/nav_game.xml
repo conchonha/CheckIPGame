@@ -16,5 +16,14 @@
     <fragment
         android:id="@+id/introduceFragment"
         android:name="com.sangtb.game.ui.introduce.IntroduceFragment"
-        android:label="IntroduceFragment" />
+        android:label="IntroduceFragment">
+        <action
+            android:id="@+id/action_introduceFragment_to_webViewFragment"
+            app:destination="@+id/webViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.sangtb.game.ui.view.WebViewFragment"
+        android:label="WebViewFragment"/>
 </navigation>
