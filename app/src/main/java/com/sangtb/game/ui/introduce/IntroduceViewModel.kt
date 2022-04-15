@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sangtb.androidlibrary.base.AppEvent
 import com.sangtb.androidlibrary.base.BaseViewModel
-import com.sangtb.game.data.repository.DataFireBaseRepository
 import com.sangtb.game.data.repository.DataFireBaseRepositoryImpl
 import com.sangtb.game.R
 import com.sangtb.game.data.repository.IpRepositoryImpl
@@ -21,7 +20,7 @@ import com.sangtb.game.utils.SharePrefs
 import com.sangtb.game.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,11 +44,11 @@ class IntroduceViewModel @Inject constructor(
     val codeIntroduce = SingleLiveEvent<CodeIntroduce>()
 
     //khi có database sẽ update sau
-    private var _supportContactNumber = MutableLiveData<LinkKu>()
+    private val _supportContactNumber = MutableLiveData<LinkKu>()
     val supportContactNumber: LiveData<LinkKu>
         get() = _supportContactNumber
 
-    private var _zaloNumber = MutableLiveData<LinkKu>()
+    private val _zaloNumber = MutableLiveData<LinkKu>()
     val zaloNumber: LiveData<LinkKu>
         get() = _zaloNumber
 
@@ -63,7 +62,7 @@ class IntroduceViewModel @Inject constructor(
 
         val boolean =
             _ipList?.countrycode == Const.COUNTRY_CODE_VIETNAME && tz.id == Const.TIME_ZONE_VIETNAM
-        Log.d(TAG, "Contrycode: ${_ipList?.countrycode} --- TimeZone: ${tz.id}")
+        Log.d(TAG, "country: ${_ipList?.countrycode} --- TimeZone: ${tz.id}")
         return boolean
     }
 
@@ -74,16 +73,17 @@ class IntroduceViewModel @Inject constructor(
             viewModelScope.launch {
                 dataFireBaseRepository.getCodeIntroduce {
                     codeIntroduce.postValue(it[INDEX_0])
-                    Log.d(TAG, "getCodeIntroduce: ${it.get(INDEX_0)}")
+                    Log.d(TAG, "getCodeIntroduce: ${it[INDEX_0]}")
                 }
             }
         }
     }
 
-    fun getLinkDkku() {
-        Log.d(TAG, "getLinkku:  ${checkInterNetVietNam()}")
+    fun getLinkDkKu() {
+        Log.d(TAG, "getLinkKu:  ${checkInterNetVietNam()}")
         if (checkInterNetVietNam())
             dataFireBaseRepository.getLinkDkku {
+                repositoryImpl.onShowDialog(true)
                 viewModelScope.launch {
                     evenSender.send(
                         AppEvent.OnNavigation(
@@ -93,18 +93,16 @@ class IntroduceViewModel @Inject constructor(
                             }
                         )
                     )
-                    Log.d(TAG, "getLinkku: ${it.get(0)}")
+                    Log.d(TAG, "getLinkKu: ${it[INDEX_0]}")
                 }
             }
     }
 
-    fun getLinkDnku() {
-        Log.d(TAG, "getLinkku:  ${checkInterNetVietNam()}")
+    fun getLinkDnKu() {
+        Log.d(TAG, "getLinkKu:  ${checkInterNetVietNam()}")
         if (checkInterNetVietNam())
             dataFireBaseRepository.getLinkDnku {
-        if (checkInterNetVietNam()) {
-            repositoryImpl.onShowDialog(true)
-            dataFireBaseRepository.getLinkku {
+                repositoryImpl.onShowDialog(true)
                 viewModelScope.launch {
                     evenSender.send(
                         AppEvent.OnNavigation(
@@ -114,7 +112,7 @@ class IntroduceViewModel @Inject constructor(
                             }
                         )
                     )
-                    Log.d(TAG, "getLinkku: ${it.get(INDEX_0)}")
+                    Log.d(TAG, "getLinkKu: ${it.get(INDEX_0)}")
                 }
             }
     }
@@ -125,29 +123,31 @@ class IntroduceViewModel @Inject constructor(
         if (checkInterNetVietNam()) {
             repositoryImpl.onShowDialog(true)
             viewModelScope.launch {
-                dataFireBaseRepository.getLinkku {
+                dataFireBaseRepository.getLinkDkku {
                     _linkKu.postValue(it[1])
                     Log.d(TAG, "getSupportContactNumber: ${it[INDEX_1]}")
-                dataFireBaseRepository.getLinkDnku {
-                    _supportContactNumber.postValue(it[0])
-                    Log.d(TAG, "getSupportContactNumber: ${it.get(0)}")
+                    dataFireBaseRepository.getLinkDnku { result ->
+                        _supportContactNumber.postValue(result[INDEX_0])
+                        Log.d(TAG, "getSupportContactNumber: ${result[INDEX_0]}")
+                    }
                 }
             }
         }
     }
 
     //khi có data sẽ update sau
-    fun getZaloNumbers() {
-        Log.d(TAG, "getZaloNumbers:  ${checkInterNetVietNam()}")
+    fun getZaLoNumbers() {
+        Log.d(TAG, "getZaLoNumbers:  ${checkInterNetVietNam()}")
         if (checkInterNetVietNam()) {
             repositoryImpl.onShowDialog(true)
             viewModelScope.launch {
                 dataFireBaseRepository.getLinkDkku {
-                    _zaloNumber.postValue(it[0])
-                    Log.d(TAG, "getZaloNumber: ${it.get(0)}")
-                dataFireBaseRepository.getLinkku {
-                    _linkKu.postValue(it[INDEX_1])
-                    Log.d(TAG, "getZaloNumber: ${it[INDEX_1]}")
+                    _zaloNumber.postValue(it[INDEX_0])
+                    Log.d(TAG, "getZaLoNumber: ${it[INDEX_0]}")
+                    dataFireBaseRepository.getLinkDkku {result->
+                        _linkKu.postValue(result[INDEX_1])
+                        Log.d(TAG, "getZaLoNumber: ${result[INDEX_1]}")
+                    }
                 }
             }
         }
@@ -170,7 +170,5 @@ class IntroduceViewModel @Inject constructor(
         const val LINK_WEB_VIEW = "LinkWebView"
         private const val INDEX_0 = 0
         private const val INDEX_1 = 1
-        const val LINK_DK_KU = "https://gu1vn.net/Mobile/Register/Register"
-        const val LINK_DN_KU = "https://gu1vn.net/Mobile/Home/Login"
     }
 }

@@ -12,7 +12,7 @@
             style="@style/StyleButtonKu"
             android:layout_width="@dimen/dp150"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> action.getLinkDkku()}"
+            android:onClick="@{() -> action.getLinkDkKu()}"
             android:text="@string/text_btn_dk_ku"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp120"
             android:layout_marginEnd="@dimen/dp30"
-            android:onClick="@{() -> action.getLinkDnku()}"
+            android:onClick="@{() -> action.getLinkDnKu()}"
             android:text="@string/text_btn_dn_ku"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp50"
-                android:onClick="@{() -> action.getZaloNumbers()}"
+                android:onClick="@{() -> action.getZaLoNumbers()}"
                 android:text="@string/text_btn_go_to_the_forum_zalo_number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
