@@ -3,6 +3,7 @@ package com.sangtb.game.di;
 import android.content.Context
 import android.content.SharedPreferences
 import com.sangtb.game.utils.Const
+import com.sangtb.game.utils.Helpers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,4 +29,8 @@ class SharedPreferenceModule {
     @Singleton
     fun provideSharePreferencesEditor(sharedPreferences: SharedPreferences): SharedPreferences.Editor =
         sharedPreferences.edit()
+
+    @Provides
+    @Singleton
+    fun provideHelper() = Helpers()
 }
