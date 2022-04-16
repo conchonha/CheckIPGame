@@ -10,6 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.sangtb.androidlibrary.base.BaseFragment
 import com.sangtb.game.R
 import com.sangtb.game.databinding.FragmentIntroduceBinding
+import com.sangtb.game.ui.introduce.IntroduceViewModel.Companion.LINK_WEB_VIEW
+import com.sangtb.game.ui.introduce.IntroduceViewModel.Companion.TYPE
+import com.sangtb.game.ui.view.WebViewActivity
 import com.sangtb.game.utils.Const.TAG_DIALOG_CODE
 import com.sangtb.game.utils.DialogGame
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,25 +32,26 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
             Log.d(TAG, "onViewCreated: $it")
             viewModel.setIpList(it)
         }
-
-        viewModel.codeIntroduce.observe(viewLifecycleOwner) {
-            DialogGame()
-                .setCanceler()
-                .setTitle(getString(R.string.notification))
-                .setMessage(getString(R.string.introduce_code) + it.code)
-                .show(childFragmentManager, TAG_DIALOG_CODE)
-        }
-
-        viewModel.linkForumXoc.observe(viewLifecycleOwner) {
-            showWeb(it.link)
-        }
-
-        viewModel.supportContactNumber.observe(viewLifecycleOwner) {
-            showWeb(it.link)
-        }
-
-        viewModel.zaLoNumber.observe(viewLifecycleOwner) {
-            showWeb(it.link)
+        viewModel.apply {
+            codeIntroduce.observe(viewLifecycleOwner) {
+                DialogGame()
+                    .setCanceler()
+                    .setTitle(getString(R.string.notification))
+                    .setMessage(getString(R.string.introduce_code) + it.code)
+                    .show(childFragmentManager, TAG_DIALOG_CODE)
+            }
+            linkForumXoc.observe(viewLifecycleOwner) {
+                showWeb(it.link)
+            }
+            supportContactNumber.observe(viewLifecycleOwner) {
+                showWeb(it.link)
+            }
+            zaLoNumber.observe(viewLifecycleOwner) {
+                showWeb(it.link)
+            }
+            linkKu.observe(viewLifecycleOwner) {
+                loadWebView(it.first, it.second)
+            }
         }
 
         binding.btnGetReferralCode.setOnClickListener {
@@ -63,5 +67,13 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
         val mUri = Uri.parse(uri)
         val intent = Intent(Intent.ACTION_VIEW, mUri)
         context?.startActivity(intent)
+    }
+
+    fun loadWebView(type: String?, link: String?) {
+        val intent = Intent(this.context, WebViewActivity::class.java).apply {
+            putExtra(LINK_WEB_VIEW, link)
+            putExtra(TYPE, type)
+        }
+        startActivity(intent)
     }
 }

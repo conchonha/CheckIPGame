@@ -32,5 +32,15 @@
     <string name="title_cancel">Thoát</string>
     <string name="title_ok">Đồng Ý</string>
     <string name="please_check_country_internet">Vui lòng Sử dụng nhà mạng việt Nam</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="toast_twice_exit_app">Please click again to exit the app!</string>
     <string name="canot_connect_internet">Không thể kết nối internet vui lòng thử lại sau</string>
 </resources>

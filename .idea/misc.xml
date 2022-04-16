@@ -11,6 +11,8 @@
         <entry key="..\:/AndroidStudioProject/CheckIPGame/app/src/main/res/drawable/boder_edit.xml" value="0.152" />
         <entry key="..\:/AndroidStudioProject/CheckIPGame/app/src/main/res/drawable/border_send.xml" value="0.152" />
         <entry key="..\:/AndroidStudioProject/CheckIPGame/app/src/main/res/drawable/ic_launcher_background.xml" value="0.152" />
+        <entry key="..\:/AndroidStudioProject/CheckIPGame/app/src/main/res/layout/activity_web_view.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProject/CheckIPGame/app/src/main/res/layout/content_web_view.xml" value="0.12083333333333333" />
         <entry key="..\:/AndroidStudioProject/CheckIPGame/app/src/main/res/layout/fragment_introduce.xml" value="0.152" />
         <entry key="..\:/AndroidStudioProject/CheckIPGame/app/src/main/res/layout/fragment_login.xml" value="0.34312210200927357" />
         <entry key="..\:/AndroidStudioProject/CheckIPGame/app/src/main/res/layout/fragment_login2.xml" value="0.25" />
@@ -28,7 +30,6 @@
         <entry key="..\:/android/android_kotlin/game/app/src/main/res/layout/activity_main.xml" value="0.1334853090172239" />
         <entry key="..\:/android/android_kotlin/game/app/src/main/res/layout/dialog_android.xml" value="0.1265625" />
         <entry key="..\:/android/android_kotlin/game/app/src/main/res/layout/dialog_layout.xml" value="0.1734375" />
-        <entry key="..\:/android/android_kotlin/game/app/src/main/res/layout/dialog_loading.xml" value="0.1734375" />
         <entry key="..\:/android/android_kotlin/game/app/src/main/res/layout/fragment_auth.xml" value="0.176" />
         <entry key="..\:/android/android_kotlin/game/app/src/main/res/layout/fragment_introduce.xml" value="0.2" />
         <entry key="..\:/android/android_kotlin/game/app/src/main/res/layout/fragment_login.xml" value="0.1" />

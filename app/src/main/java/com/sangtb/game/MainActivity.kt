@@ -1,6 +1,7 @@
 package com.sangtb.game
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.KeyEvent
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class MainActivity : BaseActivity() {
     private lateinit var _navHostController: NavController
     private lateinit var _navHostFragment: NavHostFragment
+    private var isBackTwice = false
 
     @Inject
     lateinit var ipRepository: IpRepositoryImpl
@@ -58,11 +60,17 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            onBackStack()
-            return false
+        Log.d(TAG, "onKeyDown: ${isBackTwice}")
+        if (keyCode == KeyEvent.KEYCODE_BACK && isBackTwice) {
+            Log.d(TAG, "onKeyDown: ${event?.repeatCount}")
+            finish()
         }
-        return super.onKeyDown(keyCode, event)
+
+        showToast(getString(R.string.toast_twice_exit_app))
+        isBackTwice = true
+        Handler().postDelayed({ isBackTwice = false }, 2000)
+        onBackStack()
+        return false
     }
 
     fun refreshCurrentFragment() {
@@ -79,11 +87,11 @@ class MainActivity : BaseActivity() {
         if (_navHostController.currentDestination?.id != R.id.authFragment) {
             _navHostController.popBackStack()
         } else {
-            _navHostFragment.childFragmentManager.fragments[INDEX_AUTH_FRAGMENT]?.let {
-                if (it is AuthFragment) {
-                    it.setIsLogin()
-                }
-            }
+           _navHostFragment.childFragmentManager.fragments[INDEX_AUTH_FRAGMENT]?.let {
+               if(it is AuthFragment) {
+                   it.setIsLogin()
+               }
+           }
         }
     }
 
