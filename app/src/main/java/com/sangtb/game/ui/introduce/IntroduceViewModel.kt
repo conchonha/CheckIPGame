@@ -31,8 +31,6 @@ class IntroduceViewModel @Inject constructor(
     private val helpers: Helpers
 ) : BaseViewModel(application) {
 
-    private var _ipList: IPList? = null
-
     private val _linkKu = MutableLiveData<LinkKu>()
     val linkKu: LiveData<LinkKu> = _linkKu
 
@@ -48,32 +46,39 @@ class IntroduceViewModel @Inject constructor(
     private val _zaLoNumber = MutableLiveData<LinkKu>()
     val zaLoNumber: LiveData<LinkKu> = _zaLoNumber
 
+    private var _ipList: IPList? = null
+
     fun setIpList(ipList: IPList) {
         _ipList = ipList
     }
 
     private fun checkInterNetVietNam(action: () -> Unit) {
-        if (helpers.checkInterNetVN(_ipList?.countrycode))
-            action.invoke()
-        else
-            viewModelScope.launch {
-                evenSender.send(AppEvent.OnShowToast(getString(R.string.please_check_country_internet)))
+        viewModelScope.launch {
+            when {
+                !helpers.isInternetAvailable(getApplication()) -> evenSender.send(
+                    AppEvent.OnShowToast(
+                        getString(R.string.canot_connect_internet)
+                    )
+                )
+                helpers.checkInterNetVN(_ipList?.countrycode) -> action.invoke()
+                else -> evenSender.send(AppEvent.OnShowToast(getString(R.string.please_check_country_internet)))
             }
+        }
+
     }
 
     fun getCodeIntroduces() = checkInterNetVietNam {
-        repositoryImpl.onShowDialog(true)
         viewModelScope.launch {
             dbFirebase.getCodeIntroduce {
                 it.getOrNull(INDEX_0)?.let { value -> codeIntroduce.postValue(value) }
                 Log.d(TAG, "getCodeIntroduce: ${it.getOrNull(INDEX_0)}")
+                return@getCodeIntroduce
             }
         }
     }
 
     fun getLinkDkKu() = checkInterNetVietNam {
         dbFirebase.getLinkDkku {
-            repositoryImpl.onShowDialog(true)
             viewModelScope.launch {
                 evenSender.send(
                     AppEvent.OnNavigation(
@@ -84,13 +89,13 @@ class IntroduceViewModel @Inject constructor(
                     )
                 )
                 Log.d(TAG, "getLinkKu: ${it.getOrNull(INDEX_0)}")
+                return@launch
             }
         }
     }
 
     fun getLinkDnKu() = checkInterNetVietNam {
         dbFirebase.getLinkDnku {
-            repositoryImpl.onShowDialog(true)
             viewModelScope.launch {
                 evenSender.send(
                     AppEvent.OnNavigation(
@@ -107,7 +112,6 @@ class IntroduceViewModel @Inject constructor(
 
     //khi có data sẽ update sau
     fun getSupportContactNumbers() = checkInterNetVietNam {
-        repositoryImpl.onShowDialog(true)
         viewModelScope.launch {
             dbFirebase.getLinkDkku {
                 it.getOrNull(INDEX_1)?.let { value -> _linkKu.postValue(value) }
@@ -116,14 +120,15 @@ class IntroduceViewModel @Inject constructor(
                     result.getOrNull(INDEX_0)
                         ?.let { value -> _supportContactNumber.postValue(value) }
                     Log.d(TAG, "getSupportContactNumber: ${result.getOrNull(INDEX_0)}")
+                    return@getLinkDnku
                 }
+                return@getLinkDkku
             }
         }
     }
 
     //khi có data sẽ update sau
     fun getZaLoNumbers() = checkInterNetVietNam {
-        repositoryImpl.onShowDialog(true)
         viewModelScope.launch {
             dbFirebase.getLinkDkku {
                 it.getOrNull(INDEX_0)?.let { value -> _zaLoNumber.postValue(value) }
@@ -132,16 +137,17 @@ class IntroduceViewModel @Inject constructor(
                     result.getOrNull(INDEX_1)?.let { value -> _linkKu.postValue(value) }
                     Log.d(TAG, "getZaLoNumber: ${result.getOrNull(INDEX_1)}")
                 }
+                return@getLinkDkku
             }
         }
     }
 
     fun getLinkForumXoc1() = checkInterNetVietNam {
-        repositoryImpl.onShowDialog(true)
         viewModelScope.launch {
             dbFirebase.getLinkDiendanxoc {
-                it.getOrNull(INDEX_0)?.let { value-> _linkForumXoc.postValue(value)}
+                it.getOrNull(INDEX_0)?.let { value -> _linkForumXoc.postValue(value) }
                 Log.d(TAG, "getLinkDienDanXoc: ${it.getOrNull(INDEX_0)}")
+                return@getLinkDiendanxoc
             }
         }
     }

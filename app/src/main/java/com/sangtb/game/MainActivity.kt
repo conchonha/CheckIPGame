@@ -3,7 +3,6 @@ package com.sangtb.game
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -11,38 +10,46 @@ import androidx.navigation.fragment.findNavController
 import com.sangtb.game.base.BaseActivity
 import com.sangtb.game.data.repository.IpRepositoryImpl
 import com.sangtb.game.ui.auth.AuthFragment
-import com.sangtb.game.utils.DialogGame
-import com.sangtb.game.utils.DialogLoading
+import com.sangtb.game.utils.Helpers
 import com.sangtb.game.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import java.util.*
+
+
+
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
     private lateinit var _navHostController: NavController
     private lateinit var _navHostFragment: NavHostFragment
-    private var jog : Job? = null
 
     @Inject
     lateinit var ipRepository: IpRepositoryImpl
+
+    @Inject
+    lateinit var helpers: Helpers
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        jog = lifecycleScope.launchWhenStarted {
-            ipRepository.getIpList()
+        lifecycleScope.launchWhenStarted {
+            ipRepository.getIpList {
+                hideDialog()
+            }
         }
 
-        ipRepository.showDialogLoading.observe(this){
+        ipRepository.showDialogLoading.observe(this) {
             Log.d(TAG, "onCreate: $it")
-           if(it) showProgressDialog() else  hideDialog()
+            if (it) showProgressDialog() else hideDialog()
         }
 
         ipRepository.showToastError.observe(this@MainActivity) {
-            showToast(getString(R.string.connect_server_fail) + it.message)
+            if (!helpers.isInternetAvailable(this)) {
+                showToast(getString(R.string.canot_connect_internet))
+            } else {
+                showToast(getString(R.string.connect_server_fail) + it.message)
+            }
         }
 
         _navHostFragment =
@@ -72,21 +79,15 @@ class MainActivity : BaseActivity() {
         if (_navHostController.currentDestination?.id != R.id.authFragment) {
             _navHostController.popBackStack()
         } else {
-           _navHostFragment.childFragmentManager.fragments[INDEX_AUTH_FRAGMENT]?.let {
-               if(it is AuthFragment) {
-                   it.setIsLogin()
-               }
-           }
+            _navHostFragment.childFragmentManager.fragments[INDEX_AUTH_FRAGMENT]?.let {
+                if (it is AuthFragment) {
+                    it.setIsLogin()
+                }
+            }
         }
     }
 
-    override fun onDestroy() {
-        jog?.cancel()
-        jog = null
-        super.onDestroy()
-    }
-
-    companion object{
+    companion object {
         private const val INDEX_AUTH_FRAGMENT = 0
     }
 }

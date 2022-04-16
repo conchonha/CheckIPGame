@@ -1,6 +1,8 @@
 package com.sangtb.game.data.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.sangtb.game.data.Account
 import com.sangtb.game.data.ApiIpList
 import com.sangtb.game.data.response.IPList
@@ -18,29 +20,35 @@ class IpRepositoryImpl @Inject constructor(
 
     val showToastError = SingleLiveEvent<Throwable>()
 
-    private val _ipAddress = MutableSharedFlow<Result<IPList>>()
-    val ipAddress = _ipAddress.asSharedFlow()
+    private val _ipAddress = MutableLiveData<IPList>()
+    val ipAddress : LiveData<IPList> = _ipAddress
 
     override val repository: IpRepositoryImpl
         get() = this
 
-    override suspend fun getIpList() {
+    override suspend fun getIpList(action: (IPList) -> Unit) {
+        onShowDialog(true)
         val response = safeApiCall { apiIpList.getAPIIp() }
-        _ipAddress.emit(response)
+        response.onSuccess {
+            _ipAddress.postValue(it)
+            action.invoke(it)
+        }
     }
 
     override suspend fun writeGoogleSheetVietNam(account: Account): Flow<Result<Any>> {
+        val response = safeApiCall {
+            apiIPVietNam.writeGoogleSheet(
+                account.ip ?: "",
+                account.name,
+                account.phone,
+                account.accountKU,
+                account.password,
+                account.action
+            )
+        }
+        onShowDialog()
+
         return flow {
-            val response = safeApiCall {
-                apiIPVietNam.writeGoogleSheet(
-                    account.ip ?: "",
-                    account.name,
-                    account.phone,
-                    account.accountKU,
-                    account.password,
-                    account.action
-                )
-            }
             emit(response)
         }
     }

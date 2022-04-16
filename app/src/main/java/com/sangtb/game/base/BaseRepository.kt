@@ -14,6 +14,7 @@ abstract class BaseRepository {
                 Result.success(apiCall.invoke())
             } catch (throwable: Throwable) {
                 repository?.onFail(throwable)
+                repository?.onShowDialog()
                 Result.failure(throwable)
             }
         }

@@ -93,7 +93,7 @@
                     android:id="@+id/phoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp40"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:drawablePadding="@dimen/dp10"
                     android:background="@drawable/bg_edt_register"
                     android:drawableStart="@drawable/phone_android_24px"

@@ -3,16 +3,11 @@ package com.sangtb.game.ui.auth
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sangtb.androidlibrary.base.BaseFragment
-import com.sangtb.androidlibrary.utils.Validations
 import com.sangtb.game.R
-import com.sangtb.game.data.repository.IpRepositoryImpl
 import com.sangtb.game.databinding.FragmentAuthBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AuthFragment : BaseFragment<FragmentAuthBinding, AuthViewModel>() {
@@ -21,25 +16,13 @@ class AuthFragment : BaseFragment<FragmentAuthBinding, AuthViewModel>() {
 
     override val viewModel: AuthViewModel by viewModels()
 
-    @Inject
-    lateinit var repositoryImpl: IpRepositoryImpl
-
-    @Inject
-    lateinit var validation : Validations
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.checkAccount()
         binding.action = viewModel
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repositoryImpl.ipAddress.collect {
-                it.onSuccess { viewModel.setResultAddress(it) }
-            }
-        }
-
         binding.root.setOnClickListener {
-            validation.hideKeyboard(it,requireContext())
+            viewModel.validation.hideKeyboard(it, requireContext())
         }
     }
 

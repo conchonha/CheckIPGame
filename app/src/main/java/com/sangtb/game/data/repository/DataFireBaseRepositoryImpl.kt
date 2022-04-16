@@ -19,6 +19,7 @@ class DataFireBaseRepositoryImpl @Inject constructor(
     DataFireBaseRepository(), OnFailureListener {
 
     override fun getCodeIntroduce(response: (List<CodeIntroduce>) -> Unit) {
+        repositoryImpl.onShowDialog(true)
         val listCodeIntroduce = mutableListOf<CodeIntroduce>()
 
         firebaseStore.collection(COLLECTION_CODE_INTRODUCE).get().addOnSuccessListener {
@@ -34,9 +35,10 @@ class DataFireBaseRepositoryImpl @Inject constructor(
     }
 
     override fun getLinkDkku(response: (List<LinkKu>) -> Unit) {
+        repositoryImpl.onShowDialog(true)
         val listLinkKu = mutableListOf<LinkKu>()
+
         firebaseStore.collection(COLLECTION_LINK_KU).whereEqualTo("dk", "dk").get().addOnSuccessListener {
-            repositoryImpl.onShowDialog()
             for (document in it.documents) {
                 document.toObject(LinkKu::class.java)?.let { it ->
                     listLinkKu.add(it)
@@ -44,13 +46,15 @@ class DataFireBaseRepositoryImpl @Inject constructor(
             }
             Log.d("aa", "getLinkku: $listLinkKu")
             response.invoke(listLinkKu)
+            repositoryImpl.onShowDialog()
         }.addOnFailureListener(this@DataFireBaseRepositoryImpl)
     }
 
     override fun getLinkDnku(response: (List<LinkKu>) -> Unit) {
+        repositoryImpl.onShowDialog(true)
         val listLinkKu = mutableListOf<LinkKu>()
+
         firebaseStore.collection(COLLECTION_LINK_KU).whereEqualTo("dk", "dn").get().addOnSuccessListener {
-            repositoryImpl.onShowDialog()
             for (document in it.documents) {
                 document.toObject(LinkKu::class.java)?.let { it ->
                     listLinkKu.add(it)
@@ -58,11 +62,14 @@ class DataFireBaseRepositoryImpl @Inject constructor(
             }
             Log.d("aa", "getLinkku: $listLinkKu")
             response.invoke(listLinkKu)
+            repositoryImpl.onShowDialog()
         }.addOnFailureListener(this@DataFireBaseRepositoryImpl)
     }
 
     override fun getLinkDiendanxoc(response: (List<Diendanxoc>) -> Unit) {
         val listDiendanxoc = mutableListOf<Diendanxoc>()
+        repositoryImpl.onShowDialog(true)
+
         firebaseStore.collection(COLLECTION_DIEN_DAN_XOC).get()
             .addOnSuccessListener {
                 repositoryImpl.onShowDialog()

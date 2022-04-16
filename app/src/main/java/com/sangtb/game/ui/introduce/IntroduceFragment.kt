@@ -3,9 +3,9 @@ package com.sangtb.game.ui.introduce
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sangtb.androidlibrary.base.BaseFragment
 import com.sangtb.game.R
@@ -25,12 +25,9 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
         super.onViewCreated(view, savedInstanceState)
         binding.action = viewModel
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.repositoryImpl.ipAddress.collect {
-                it.onSuccess { ipList ->
-                    viewModel.setIpList(ipList)
-                }
-            }
+        viewModel.repositoryImpl.ipAddress.observe(viewLifecycleOwner){
+            Log.d(TAG, "onViewCreated: $it")
+            viewModel.setIpList(it)
         }
 
         viewModel.codeIntroduce.observe(viewLifecycleOwner) {
@@ -48,9 +45,11 @@ class IntroduceFragment : BaseFragment<FragmentIntroduceBinding, IntroduceViewMo
         viewModel.supportContactNumber.observe(viewLifecycleOwner) {
             showWeb(it.link)
         }
+
         viewModel.zaLoNumber.observe(viewLifecycleOwner) {
             showWeb(it.link)
         }
+
         binding.btnGetReferralCode.setOnClickListener {
             DialogGame().show(childFragmentManager, "SANG")
         }
